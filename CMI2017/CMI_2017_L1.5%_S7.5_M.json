@@ -1,7 +1,7 @@
 {
-"minAge": 20,
-"maxAge": 150,
-"minYear": 1977,
-"maxYear": 2147,
-"rf": []
-};
+  "minAge": 20,
+  "maxAge": 150,
+  "minYear": 1977,
+  "maxYear": 2147,
+  "rf": [1,1]
+}
