@@ -11,7 +11,8 @@ Hello world
   fetch("https://py1tgrd.github.io/dashboard/test.json")
   .then((resp) => resp.json())
   .then(function(data){
-   document.write(JSON.stringify(data)); 
+   document.write(JSON.stringify(data));
+   document.write(data.name);
   })
   .catch(function(error){
     console.log(error);
