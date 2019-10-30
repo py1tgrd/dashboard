@@ -12,7 +12,10 @@ Hello world
   .then((resp) => resp.json())
   .then(function(data){
    document.write(JSON.stringify(data));
+   document.write("<br>");
    document.write(data["name"]);
+   document.write("<br>");
+   document.write(data["number"]);
   })
   .catch(function(error){
     console.log(error);
