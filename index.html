@@ -8,9 +8,15 @@ Hello world
 <script>
   document.write("Hello internet");
   
-  let response = await fetch("https://py1tgrd.github.io/dashboard/test.json");
-  let text = await response.text();
-  document.write(text);
+  fetch("https://py1tgrd.github.io/dashboard/test.json")
+  .then((resp) => resp.text())
+  .then(function(data){
+   document.write(data); 
+  })
+  .catch(function(error){
+    console.log(error);
+  });
+  
   
 </script>
 
