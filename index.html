@@ -9,9 +9,9 @@ Hello world
   document.write("Hello internet");
   
   fetch("https://py1tgrd.github.io/dashboard/test.json")
-  .then((resp) => resp.text())
+  .then((resp) => resp.json())
   .then(function(data){
-   document.write(data); 
+   document.write(JSON.stringify(data)); 
   })
   .catch(function(error){
     console.log(error);
