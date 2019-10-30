@@ -6,7 +6,7 @@ Hello world
 </body>
 
 <script>
-  document.write("Hello internet");
+  /*document.write("Hello internet");
   
   fetch("https://py1tgrd.github.io/dashboard/test.json")
   .then((resp) => resp.json())
@@ -20,6 +20,19 @@ Hello world
   .catch(function(error){
     console.log(error);
   });
+  */
+    fetch("https://py1tgrd.github.io/dashboard/CMI2017/CMI_2017_L1.5%_S7.5_M.json")
+  .then((resp) => resp.json())
+  .then(function(data){
+   document.write(data["minAge"]);
+   document.write("<br>");
+   document.write(data["maxAge"]);
+  })
+  .catch(function(error){
+    console.log(error);
+  });
+  
+  
   
   
 </script>
