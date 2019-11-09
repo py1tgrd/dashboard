@@ -64,7 +64,6 @@ body{
 	transition: transform 0.4s;
 	position:relative;
 	background-color:white;
-	border: 1pt solid;
 }
 
  /* translate doesn't seem to work with var !!! */	
