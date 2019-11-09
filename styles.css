@@ -40,6 +40,7 @@ body{
 
 .card_container.standard{
 	overflow:visible;
+	
 }
 
 .card_container{
@@ -47,20 +48,23 @@ body{
 	flex-wrap:nowrap;
 	overflow:hidden;
 	/*visible to show again */
-	width:var(--page-width);
+	/* width:var(--page-width); */
 	min-height:710px; /*How to make this flex*/
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
 	margin: 25px 25px;
 	background-color:var(--color-card);
+	flex: 1;
+	
 }
 
 .wrapper{
 	display:flex;
-	
+	flex: 1 1 auto;
 	/* transition: transform 0.3s;  */
 	transition: transform 0.4s;
 	position:relative;
 	background-color:white;
+	border: 1pt solid;
 }
 
  /* translate doesn't seem to work with var !!! */	
@@ -78,7 +82,7 @@ body{
 
 .card{
 	background-color:var(--color-card);
-	width:var(--page-width);
+	/* width:var(--page-width); */
 	/* min-height:300px; */
 	/* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
 	
@@ -86,13 +90,13 @@ body{
 	display:flex;
 	flex-direction:column;
 	/* position:relative; */
-	flex:1 0 auto; /* grow-none, shrink-none, basis - how spreads out */
+	flex:1 1 auto; /* grow-none, shrink-none, basis - how spreads out */
 }
 
 .card2, .card3,.card4, .card5,.card6{
 	position:absolute;
 	left:275px;
-	
+	display:none;
 }
 
 
@@ -145,7 +149,7 @@ body{
 	position: relative;
 	display:flex;
 	flex-direction:column;
-	flex: 0 1;
+	flex: 0 1 auto;
 
 	/* justify-content:flex-start;	 */
 	
