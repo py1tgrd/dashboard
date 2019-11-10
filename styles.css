@@ -32,18 +32,20 @@ font-weight:
 	margin:0;
 	box-sizing:border-box;
 	font-family: "Helvetica", Sans-Serif;
-	font-size:30px; 
+	font-size:16px; 
 }
 
 
 /*Simple change to make responsive*/
-@media only screen (max-width: 600px){
+@media screen and (min-width: 400px){
 	*{
 		font-size:16px;
+		
 	}
 	
 	.card_container{
-		max-width:715px;
+		max-width:275px;
+		margin: 25px 25px;
 	}
 	
 }
@@ -73,7 +75,7 @@ body{
 	/* width:var(--page-width); */
 	min-height:1000px; /*How to make this flex*/
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
-	margin: 25px 25px;
+	/* margin: 25px 25px; */
 	background-color:var(--color-card);
 	
 }
@@ -88,7 +90,8 @@ body{
 
 .slide-in{
 	/* transform:translateX(-275px); */
-	transform:translateX(-100vw);
+	/* transform:translateX(-100vw); */
+	transform:translateX(-100%);
 }
 
 .card{
@@ -106,7 +109,8 @@ body{
 .card2, .card3, .card4, .card5, .card6{
 	position:absolute;
 	width:100%;
-	transform:translateX(100vw);
+	/* transform:translateX(100vw); */
+	transform:translateX(100%);
 }
 
 .card.hidden{
