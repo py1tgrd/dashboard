@@ -44,7 +44,7 @@ font-weight:
 	}
 	
 	.card_container{
-		max-width:275px;
+		max-width:360px;
 		margin: 25px 25px;
 	}
 	
@@ -59,7 +59,8 @@ body{
 	display:flex;
 	flex-direction:row;
 	flex: 1 1 auto;
-	align-items:flex-start; /*means that the box doesn't expand to the bottom */
+	/* align-items:flex-start; /*means that the box doesn't expand to the bottom */ */
+	
 }
 
 .card_container.standard{
@@ -69,16 +70,16 @@ body{
 .card_container{
 	display:flex;
 	flex: 1 1 auto;
-	align-items:start;
+	align-items:flex-start;
 	overflow:hidden;
-	/*visible to show again */
-	/* width:var(--page-width); */
-	min-height:1000px; /*How to make this flex*/
+	min-height:725px; /*How to make this flex*/
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
 	/* margin: 25px 25px; */
 	background-color:var(--color-card);
 	
 }
+
+
 
 .wrapper{
 	display:flex;
@@ -124,7 +125,7 @@ body{
 	flex: 1 1 auto;
 	position:relative;
 	
-	min-height:75px;
+	min-height:50px;
 	background-color:var(--color-primary);
 	padding:10px 10px;
 	color:white;
@@ -136,10 +137,10 @@ body{
 
 /*buttons in the main header*/
 .fab{
-	display:none;
+	/* display:none; */
 	position:absolute;
 	border-style:none;
-	/* color:black; */
+	color:white;
 	bottom:-19px;
 	right:30px;
 	font-size:1.5rem;
@@ -152,15 +153,19 @@ body{
 	text-align:center;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	z-index:1000;
-	
+	outline:none;
 }
 
 .explore{
-	display:none;
+	/* display:none; */
 	position:absolute;
 	top:7px;
 	right:15px;
 	font-weight:700;
+	border:none;
+	color:white;
+	background-color:var(--color-primary);
+	outline:none;
 }
 /* --- */
 
@@ -214,6 +219,11 @@ body{
 	
 	margin: 0 0 5px 0;
 }
+.card_heading.disabled{
+	color: var(--color-light-dark);
+}
+
+
 
 .card_subheading{
 	display:flex;
@@ -340,3 +350,9 @@ option{
 	right: 0.3rem;
 	top: 0.7rem;
 }
+
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{
+	-webkit-appearance:none;
+	margin:0;
+}
+

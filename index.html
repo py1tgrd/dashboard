@@ -39,6 +39,8 @@ Consider born in vs.  Age now
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#6002EE">
+	
 	<link rel="stylesheet" href="./styles.css"/>
 	
 </head>
@@ -51,8 +53,8 @@ Consider born in vs.  Age now
 	<div class="card card1" id="home_screen">
 	<div class="card_header">
 		Annuity factor
-		<div class="fab">&#8635;</div>
-		<div class="explore">...</div>
+		<button class="fab" id="calculateAnnuity">&#8635;</button>
+		<button class="explore">...</button>
 	</div>
 	<div class="card_body">
 		<div class="card_item result">
@@ -115,7 +117,7 @@ Consider born in vs.  Age now
 
 <!-- Card screen start -->
 <div class="card card2">
-	<div class="card_header" id="screen2_home">&#129120; Member scenario</div>
+	<div class="card_header" id="screen2_home">&#8592; Member scenario</div>
 	<div class="card_body">
 	
 	<div class="card_item">
@@ -137,7 +139,7 @@ Consider born in vs.  Age now
 	<div class="card_item">
 	<div class="card_heading">Born in</div>
 		<div class="card_subheading"> 
-		<input type="text" id="YOB" value=1965 class="text_Input">
+		<input type="number" id="YOB" value=1965 class="text_Input">
 		</div>	
 	</div>
 	
@@ -169,13 +171,13 @@ Consider born in vs.  Age now
 
 <!-- Card screen start -->
 <div class="card card3">
-<div class="card_header" id="screen3_home">&#129120; Financials</div>
+<div class="card_header" id="screen3_home">&#8592; Financials</div>
 	<div class="card_body">
 	<div class="card_item">
 	<div class="card_heading">Discount rate</div>
 		<div class="card_subheading"> 
 			<div class="percentage_holder">
-				<input type="text" id="Int" value=4 class="text_Input pc_Input">
+				<input type="number" id="Int" value=4 step=0.05 class="text_Input pc_Input">
 			<span class="percentagePadding">%</span>	
 			</div>
 		</div>	
@@ -184,7 +186,7 @@ Consider born in vs.  Age now
 	<div class="card_heading">Pension increases</div>
 		<div class="card_subheading"> 
 			<div class="percentage_holder">
-				<input type="text" id="Esc" value=2 min="0" class="text_Input pc_Input">
+				<input type="number" id="Esc" value=2 step=0.05 min="0" class="text_Input pc_Input">
 			<span class="percentagePadding">%</span>	
 			</div>
 	
@@ -198,14 +200,14 @@ Consider born in vs.  Age now
 
 <!-- Card screen start -->
 <div class="card card4">
-<div class="card_header" id="screen4_home">&#129120; Mortality (Male)</div>
+<div class="card_header" id="screen4_home">&#8592; Mortality (Male)</div>
 	<div class="card_body">
 	
 	<div class="card_item">
 	<div class="card_heading">Qx</div>
 		<div class="card_subheading"> 
 			<div class="percentage_holder">
-				<input type="text" id="Qx_M" value=100 min="0" max="200" class="text_Input pc_Input">
+				<input type="number" id="Qx_M" value=100 min="0" max="200" class="text_Input pc_Input">
 				<span class="percentagePadding">%</span>	
 			</div>
 		</div>	
@@ -223,7 +225,7 @@ Consider born in vs.  Age now
 	<div class="card_item">
 	<div class="card_heading">Age rating</div>
 		<div class="card_subheading"> 
-		<input type="text" id="AgeRating_M" value=0 min="-10" max="10" step="0.5" class="text_Input">
+		<input type="number" id="AgeRating_M" value=0 min="-10" max="10" step="0.5" class="text_Input">
 		</div>	
 	</div>
 	
@@ -280,7 +282,7 @@ Consider born in vs.  Age now
 	</div>	
 	
 	<div class="card_item">
-	<div class="card_heading">Initial Addition</div>
+	<div class="card_heading disabled">Initial Addition</div>
 		<div class="card_subheading"> 
 				<select id="ImpModelA_M" disabled="disabled">
 					<option value=0 selected>0</option>
@@ -298,14 +300,14 @@ Consider born in vs.  Age now
 		
 <!-- Card screen start -->
 <div class="card card5">
-<div class="card_header" id="screen5_home">&#129120; Mortality (Female)</div>
+<div class="card_header" id="screen5_home">&#8592; Mortality (Female)</div>
 	<div class="card_body">
 	
 	<div class="card_item">
 	<div class="card_heading">Qx</div>
 		<div class="card_subheading">
 			<div class="percentage_holder">
-				<input type="text" id="Qx_F" value=100 min="0" max="200" class="text_Input pc_Input">
+				<input type="number" id="Qx_F" value=100 min="0" max="200" class="text_Input pc_Input">
 				<span class="percentagePadding">%</span>	
 			</div>
 		</div>	
@@ -323,7 +325,7 @@ Consider born in vs.  Age now
 	<div class="card_item">
 	<div class="card_heading">Age rating</div>
 		<div class="card_subheading"> 
-		<input type="text" id="AgeRating_F" value=0 min="-10" max="10" step="0.5" class="text_Input">
+		<input type="number" id="AgeRating_F" value=0 min="-10" max="10" step="0.5" class="text_Input">
 		</div>	
 	</div>
 	
@@ -380,7 +382,7 @@ Consider born in vs.  Age now
 	</div>	
 	
 	<div class="card_item">
-	<div class="card_heading">Initial Addition</div>
+	<div class="card_heading disabled">Initial Addition</div>
 		<div class="card_subheading"> 
 				<select id="ImpModelA_F" disabled="disabled">
 					<option value=0 selected>0</option>
@@ -397,13 +399,13 @@ Consider born in vs.  Age now
 
 <!-- Card screen start -->
 <div class="card card6">
-<div class="card_header" id="screen6_home">&#129120; Other</div>
+<div class="card_header" id="screen6_home">&#8592; Other</div>
 	<div class="card_body">
 	<div class="card_item">
 	<div class="card_heading">Spouses % on death</div>
 		<div class="card_subheading"> 
 			<div class="percentage_holder">
-				<input type="text" id="SDAR" value=50 min="0" step="1" class="text_Input pc_Input">
+				<input type="number" id="SDAR" value=50 min="0" step="1" class="text_Input pc_Input">
 				<span class="percentagePadding">%</span>	
 			</div>
 			
@@ -414,7 +416,7 @@ Consider born in vs.  Age now
 	<div class="card_heading">Proportion married (Male)</div>
 		<div class="card_subheading"> 
 			<div class="percentage_holder">
-				<input type="text" id="propM" value=100 min="0" max="100" step="1" class="text_Input pc_Input">
+				<input type="number" id="propM" value=100 min="0" max="100" step="1" class="text_Input pc_Input">
 				<span class="percentagePadding">%</span>	
 			</div>
 		</div>	
@@ -424,7 +426,7 @@ Consider born in vs.  Age now
 	<div class="card_heading">Proportion married (Female)</div>
 		<div class="card_subheading"> 
 			<div class="percentage_holder">
-				<input type="text" id="propF" value=100 min="0" max="100" step="1" class="text_Input pc_Input">
+				<input type="number" id="propF" value=100 min="0" max="100" step="1" class="text_Input pc_Input">
 				<span class="percentagePadding">%</span>	
 			</div>
 		</div>	
@@ -434,21 +436,21 @@ Consider born in vs.  Age now
 	<div class="card_item">
 	<div class="card_heading">Males older by</div>
 		<div class="card_subheading"> 
-		<input type="text" id="malesOlderBy" value=3 min="-10" max="10" class="text_Input">
+		<input type="number" id="malesOlderBy" value=3 min="-10" max="10" class="text_Input">
 		</div>	
 	</div>
 	
 	<div class="card_item">
 	<div class="card_heading">Guarantee</div>
 		<div class="card_subheading"> 
-		<input type="text" id="Guarantee" value=5 min="0" step="1" class="text_Input">
+		<input type="number" id="Guarantee" value=5 min="0" step="1" class="text_Input">
 		</div>	
 	</div>
 	
 	<div class="card_item">
 	<div class="card_heading">Frequency</div>
 		<div class="card_subheading"> 
-		<input type="text" id="Frequency" value=12 min="0" step="1" class="text_Input">
+		<input type="number" id="Frequency" value=12 min="0" step="1" class="text_Input">
 		</div>	
 	</div>	
 	
@@ -535,6 +537,7 @@ Consider born in vs.  Age now
 <!-- document.addEventListener('load', function(){displayAnnuityInputs()}); -->
 
 
+document.getElementById("calculateAnnuity").addEventListener('click', function() {calculateAnnuity()});
 document.getElementById("screen2").addEventListener('click', function() {moveRight(2)});
 document.getElementById("screen3").addEventListener('click', function() {moveRight(3)});
 document.getElementById("screen4").addEventListener('click', function() {moveRight(4)});
@@ -678,7 +681,7 @@ Other+="In advance: " + (info.inAdvance ? "Yes": "No") + "<br>";
 
 function calculateAnnuity(){
 //Copy code from previous 
-	
+	alert("test");
 
 
 }
