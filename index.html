@@ -1,0 +1,851 @@
+<!-- TODO
+Height is consistent (max height 700), but
+---Can I make the height automatically go to the biggest???? - probably not???
+Drop down color light grey (not blue) - cannot do easily with control (rendered by OS - can make custom with divs = pain!)
+
+
+Make mobile friendly
+--Doens't expand to full width
+--Mortality cards cut off at the bottom
+--Back arrows don't show up (js still works)
+--Can I change the color of the mobile browser screen and make it disapper? 
+--Annuity factor title very small!!
+
+
+
+Can make it expand to full width, with a couple of flex 1 1 auto - e.g. in wrapper
+But need to update how the transitions work
+
+
+
+
+On select tab, set autofocus to top variable
+Decide if FAB is really needed? I think it is!
+Add in annuity code
+
+
+
+Wishlist
+make more keyboard friendly - enter key, and other shortcut keys
+Consider born in vs.  Age now
+
+ -->
+
+
+
+
+<html>
+
+<head>
+	<link rel="stylesheet" href="./styles.css"/>
+	
+</head>
+
+<body onload="displayAnnuityInputs()">
+<div class="container">
+<div class="card_container">
+<div class="wrapper" id="wrapper">
+	
+	<div class="card card1" id="home_screen">
+	<div class="card_header">
+		Annuity factor
+		<div class="fab">&#8635;</div>
+		<div class="explore">...</div>
+	</div>
+	<div class="card_body">
+		<div class="card_item result">
+		
+		Result = 26.544
+		
+		</div>
+		<div class="card_item home_screen" id="screen2">
+		<div class="card_heading">Member scenario </div>
+		
+		<div class="card_subheading member" id="member_scenario"> 
+		Male born in 1965, Joint life annuity from 60
+		</div>
+		<i class="arrow right"></i>
+		</div>
+		<div class="card_item home_screen" id="screen3">
+			<div class="card_heading">Financials </div>
+			<div class="card_subheading" id="financials">
+			Discount rate: 4.50%<br>
+			Pension increases: 3.75%
+			</div>
+		<i class="arrow right"></i>
+		</div>
+		<div class="card_item home_screen" id="screen4">
+			<div class="card_heading">Mortality (Male)</div>
+			<div class="card_subheading" id="Male_Mortality"> 
+			100% of S2PA YoB CMI_2017 L=1.5% Sk=7.5
+			</div>
+			<i class="arrow right"></i>
+		</div>
+			<div class="card_item home_screen" id="screen5">
+			<div class="card_heading">Mortality (Female) </div>
+			<div class="card_subheading" id="Female_Mortality"> 
+			100% of S2PA YoB CMI_2017 L=1.25% Sk=7.5		
+			</div>
+			<i class="arrow right"></i>
+		</div>
+		<div class="card_item home_screen" id="screen6">
+			<div class="card_heading">Other</div>
+			<div class="card_subheading" id="Other"> 
+			Spouses proportion: 50%<br>
+			Proportion married: 100% (M) / 100% (F)<br>	
+			Males older by: 3 years <br>
+			Guarantee: 5 years <br>
+			Frequency: 12 <br>
+			In advance: Yes
+			</div>
+			<i class="arrow right"></i>
+		</div>	
+	</div>
+	<!-- <input type="submit" value="UPDATE" class="btn" id="btn_update_1"> -->
+
+	<!--<div class="card">
+	Stuff goes here
+	</div>
+	-->
+	</div>
+<!-- End of card -->	
+
+
+<!-- Card screen start -->
+<div class="card card2">
+	<div class="card_header" id="screen2_home">&#129120; Member scenario</div>
+	<div class="card_body">
+	
+	<div class="card_item">
+	<div class="card_heading">Gender</div>
+		<div class="card_subheading"> 
+		
+		<label class="radio_container">
+			<input type="radio" name="sex" value=0 checked>
+			<div class="radio_mark">Male</div>
+		</label>
+		
+		<label class="radio_container">
+			<input type="radio" name="sex" value=1>
+			<div class="radio_mark">Female</div>
+		</label>
+		</div>		
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Born in</div>
+		<div class="card_subheading"> 
+		<input type="text" id="YOB" value=1965 class="text_Input">
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Receiving a</div>
+		<div class="card_subheading"> 
+			<select id="annuityType">
+				<option value="0">Single life annuity</option>
+				<option value="1">Reversionary annuity</option>
+				<option value="2" selected>Joint life annuity</option>
+			</select>	
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">From age</div>
+		<div class="card_subheading"> 
+		<input type="text" id="age" value=65 class="text_Input">
+		</div>	
+	</div>
+	
+	
+		<!-- <input type="submit" value="UPDATE" class="btn" id="btn_update_2">	 -->
+	
+</div>
+</div>
+<!-- End of card -->
+
+
+<!-- Card screen start -->
+<div class="card card3">
+<div class="card_header" id="screen3_home">&#129120; Financials</div>
+	<div class="card_body">
+	<div class="card_item">
+	<div class="card_heading">Discount rate</div>
+		<div class="card_subheading"> 
+			<div class="percentage_holder">
+				<input type="text" id="Int" value=4 class="text_Input pc_Input">
+			<span class="percentagePadding">%</span>	
+			</div>
+		</div>	
+	</div>
+	<div class="card_item">
+	<div class="card_heading">Pension increases</div>
+		<div class="card_subheading"> 
+			<div class="percentage_holder">
+				<input type="text" id="Esc" value=2 min="0" class="text_Input pc_Input">
+			<span class="percentagePadding">%</span>	
+			</div>
+	
+		</div>	
+	</div>
+		<!-- <input type="submit" value="UPDATE" class="btn" id="btn_update_3">	 -->
+	
+	</div>
+</div>
+<!-- End of card -->
+
+<!-- Card screen start -->
+<div class="card card4">
+<div class="card_header" id="screen4_home">&#129120; Mortality (Male)</div>
+	<div class="card_body">
+	
+	<div class="card_item">
+	<div class="card_heading">Qx</div>
+		<div class="card_subheading"> 
+			<div class="percentage_holder">
+				<input type="text" id="Qx_M" value=100 min="0" max="200" class="text_Input pc_Input">
+				<span class="percentagePadding">%</span>	
+			</div>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Base table</div>
+		<div class="card_subheading"> 
+				<select id="mortM">
+					<option value="S2PMA" class="text_Input">S2PMA</option>
+				</select>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Age rating</div>
+		<div class="card_subheading"> 
+		<input type="text" id="AgeRating_M" value=0 min="-10" max="10" step="0.5" class="text_Input">
+		</div>	
+	</div>
+	
+	<div class="card_item">
+		<div class="card_heading">Birth or Calendar year</div>
+		<div class="card_subheading"> 
+		
+		<label class="radio_container">
+			<input type="radio" name="YearCalendarM" value="B" checked>
+			<div class="radio_mark">Birth</div>
+		</label>
+		
+		<label class="radio_container">
+			<input type="radio" name="YearCalendarM" value="C">
+			<div class="radio_mark">Calendar</div>
+		</label>
+		</div>		
+	</div>	
+	
+	<div class="card_item">
+	<div class="card_heading">Projected using CMI</div>
+		<div class="card_subheading"> 
+				<select id="ImpModelYear_M">
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+					<option value="2017" selected>2017</option>
+					<!-- <option value="2018">2018</option> -->
+				</select>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Long Term Rate</div>
+		<div class="card_subheading"> 
+				<select id="ImpModelLTT_M">
+					<option value=1>1%</option>
+					<option value=1.25>1.25%</option>
+					<option value=1.5 selected>1.5%</option>
+					<option value=1.75>1.75%</option>
+				</select>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Smoothing factor</div>
+		<div class="card_subheading"> 
+				<select id="ImpModelSk_M">
+					<option value=6.5>6.5</option>
+					<option value=7>7</option>
+					<option value=7.5 selected>7.5</option>
+					<option value=8>8</option>
+				</select>
+		</div>	
+	</div>	
+	
+	<div class="card_item">
+	<div class="card_heading">Initial Addition</div>
+		<div class="card_subheading"> 
+				<select id="ImpModelA_M" disabled="disabled">
+					<option value=0 selected>0</option>
+				</select>
+		</div>	
+	</div>
+
+	
+		<!-- <input type="submit" value="UPDATE" class="btn" id="btn_update_4">	 -->
+	
+	</div>
+</div>
+<!-- End of card -->	
+		
+		
+<!-- Card screen start -->
+<div class="card card5">
+<div class="card_header" id="screen5_home">&#129120; Mortality (Female)</div>
+	<div class="card_body">
+	
+	<div class="card_item">
+	<div class="card_heading">Qx</div>
+		<div class="card_subheading">
+			<div class="percentage_holder">
+				<input type="text" id="Qx_F" value=100 min="0" max="200" class="text_Input pc_Input">
+				<span class="percentagePadding">%</span>	
+			</div>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Base table</div>
+		<div class="card_subheading"> 
+				<select id="mortF">
+					<option value="S2PFA" class="text_Input">S2PFA</option>
+				</select>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Age rating</div>
+		<div class="card_subheading"> 
+		<input type="text" id="AgeRating_F" value=0 min="-10" max="10" step="0.5" class="text_Input">
+		</div>	
+	</div>
+	
+		<div class="card_item">
+		<div class="card_heading">Birth or Calendar year</div>
+		<div class="card_subheading"> 
+		
+		<label class="radio_container">
+			<input type="radio" name="YearCalendarF" value="B" checked>
+			<div class="radio_mark">Birth</div>
+		</label>
+		
+		<label class="radio_container">
+			<input type="radio" name="YearCalendarF" value="C">
+			<div class="radio_mark">Calendar</div>
+		</label>
+		</div>		
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Projected using CMI</div>
+		<div class="card_subheading"> 
+				<select id="ImpModelYear_F">
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+					<option value="2017" selected>2017</option>
+					<!-- <option value="2018">2018</option> -->
+				</select>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Long Term Rate</div>
+		<div class="card_subheading"> 
+				<select id="ImpModelLTT_F">
+					<option value=1>1%</option>
+					<option value=1.25>1.25%</option>
+					<option value=1.5 selected>1.5%</option>
+					<option value=1.75>1.75%</option>
+				</select>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Smoothing factor</div>
+		<div class="card_subheading"> 
+				<select id="ImpModelSk_F">
+					<option value=6.5>6.5</option>
+					<option value=7>7</option>
+					<option value=7.5 selected>7.5</option>
+					<option value=8>8</option>
+				</select>
+		</div>	
+	</div>	
+	
+	<div class="card_item">
+	<div class="card_heading">Initial Addition</div>
+		<div class="card_subheading"> 
+				<select id="ImpModelA_F" disabled="disabled">
+					<option value=0 selected>0</option>
+				</select>
+		</div>	
+	</div>
+
+	
+		<!-- <input type="submit" value="UPDATE" class="btn" id="btn_update_5">	 -->
+	
+	</div>
+</div>
+<!-- End of card -->	
+
+<!-- Card screen start -->
+<div class="card card6">
+<div class="card_header" id="screen6_home">&#129120; Other</div>
+	<div class="card_body">
+	<div class="card_item">
+	<div class="card_heading">Spouses % on death</div>
+		<div class="card_subheading"> 
+			<div class="percentage_holder">
+				<input type="text" id="SDAR" value=50 min="0" step="1" class="text_Input pc_Input">
+				<span class="percentagePadding">%</span>	
+			</div>
+			
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Proportion married (Male)</div>
+		<div class="card_subheading"> 
+			<div class="percentage_holder">
+				<input type="text" id="propM" value=100 min="0" max="100" step="1" class="text_Input pc_Input">
+				<span class="percentagePadding">%</span>	
+			</div>
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Proportion married (Female)</div>
+		<div class="card_subheading"> 
+			<div class="percentage_holder">
+				<input type="text" id="propF" value=100 min="0" max="100" step="1" class="text_Input pc_Input">
+				<span class="percentagePadding">%</span>	
+			</div>
+		</div>	
+	</div>
+	
+	
+	<div class="card_item">
+	<div class="card_heading">Males older by</div>
+		<div class="card_subheading"> 
+		<input type="text" id="malesOlderBy" value=3 min="-10" max="10" class="text_Input">
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Guarantee</div>
+		<div class="card_subheading"> 
+		<input type="text" id="Guarantee" value=5 min="0" step="1" class="text_Input">
+		</div>	
+	</div>
+	
+	<div class="card_item">
+	<div class="card_heading">Frequency</div>
+		<div class="card_subheading"> 
+		<input type="text" id="Frequency" value=12 min="0" step="1" class="text_Input">
+		</div>	
+	</div>	
+	
+	<div class="card_item">
+		<div class="card_heading">Paid in advance</div>
+		<div class="card_subheading"> 
+		
+		<label class="radio_container">
+			<input type="radio" name="inAdvance" value="Yes" checked>
+			<div class="radio_mark">Yes</div>
+		</label>
+		
+		<label class="radio_container">
+			<input type="radio" name="inAdvance" value="No">
+			<div class="radio_mark">No</div>
+		</label>
+		</div>		
+	</div>
+	
+	
+	
+	
+	
+		<!-- <input type="submit" value="UPDATE" class="btn" id="btn_update_6"> -->
+	
+	</div>
+</div>
+<!-- End of card -->
+
+
+
+
+
+
+</div>
+</div>
+<!--
+<div class="card_container2 standard">
+<div class="card">
+
+<div class="card_header">Useful links </div>
+
+<div class="card_body">
+	<div class="card_item">
+		<div class="card_heading">Links</div>
+		<div class="card_subheading">
+		<ul>
+		<li><a href="https://material.io/design/color/#tools-for-picking-colors">Material colors</a></li>
+		<li><a href="https://cssgradient.io/">Color gradient generator</a></li>
+		<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox guide</a></li>
+		</ul>
+		</div>
+	
+	</div>
+	<div class="card_item">
+		<div class="card_heading">Test</div>
+		<div class="card_subheading">
+		Test - why is this not 100% left aligned?
+		
+		</div>
+	
+	</div>
+	
+</div>
+</div>
+
+</div> -->
+	<!-- End of card -->
+	
+	
+</div>
+
+
+
+
+
+</body>
+
+
+
+
+<script>
+
+<!-- document.addEventListener('load', function(){displayAnnuityInputs()}); -->
+
+
+document.getElementById("screen2").addEventListener('click', function() {moveRight(2)});
+document.getElementById("screen3").addEventListener('click', function() {moveRight(3)});
+document.getElementById("screen4").addEventListener('click', function() {moveRight(4)});
+document.getElementById("screen5").addEventListener('click', function() {moveRight(5)});
+document.getElementById("screen6").addEventListener('click', function() {moveRight(6)});
+document.getElementById("screen2_home").addEventListener('click', function() {moveLeft()});
+document.getElementById("screen3_home").addEventListener('click', function() {moveLeft()});
+document.getElementById("screen4_home").addEventListener('click', function() {moveLeft()});
+document.getElementById("screen5_home").addEventListener('click', function() {moveLeft()});
+document.getElementById("screen6_home").addEventListener('click', function() {moveLeft()});
+
+
+
+<!-- document.getElementById("btn_update_1").addEventListener('click', function() {displayAnnuityInputs()}); -->
+<!-- document.getElementById("btn_update_2").addEventListener('click', function() {test()}); -->
+<!-- document.getElementById("btn_update_3").addEventListener('click', function() {test()}); -->
+<!-- document.getElementById("btn_update_4").addEventListener('click', function() {test()}); -->
+<!-- document.getElementById("btn_update_5").addEventListener('click', function() {test()}); -->
+
+
+function test(){
+	alert("testing");
+}
+
+
+function updateVisibleScreens(screen){
+	var elements = document.getElementsByClassName("card");
+	var regex = new RegExp("card"+screen,"i");
+	
+	for(i=0;i<elements.length;i++){
+		elements[i].classList.remove("hidden");
+		
+		if(elements[i].className.search(regex)>-1 || elements[i].className=="card card1"){
+			//do nothing if matching, or if homescreen
+		}else{
+			//otherwise, add hidden tag
+			elements[i].className+=" hidden";		
+			}
+	}
+}
+
+function moveRight(screen){
+	/*
+	var elements = document.getElementsByClassName("card");
+	var regex = new RegExp("card"+screen,"i");
+	
+	for(i=0;i<elements.length;i++){
+		elements[i].classList.remove("hidden");
+		
+		if(elements[i].className.search(regex)>-1 || elements[i].className=="card card1"){
+			//do nothing if matching, or if homescreen
+		}else{
+			console.log(elements[i].className);
+			//otherwise, add hidden tag
+			elements[i].className+=" hidden";		
+			console.log(elements[i].className);
+			}
+		}
+	*/
+	
+	updateVisibleScreens(screen);
+	var e = document.getElementById("wrapper");
+	e.className+=" slide-in";
+}
+
+function moveLeft(){
+	displayAnnuityInputs();
+	var e = document.getElementById("wrapper");
+	e.classList.remove("slide-in");
+	<!-- updateVisibleScreens(1); -->
+}
+
+
+
+function displayAnnuityInputs(){
+//To write code to update front page!
+		
+		getAnnuityInputs(); 
+		
+//Update Member scenario
+var member_scenario = (info.sex==0 ? "Male" + " born in " + info.mortM.YOB  : "Female" + " born in " + info.mortF.YOB) + ", ";
+
+switch(info.annuityType){
+	case 0:
+		member_scenario+="Single life";
+		break;
+	case 1:
+		member_scenario+="Reversionary";
+		break;
+	case 2:
+		member_scenario+="Joint life";
+		break;
+}
+member_scenario+=  " annuity from " + info.age;
+
+ var e = document.getElementById("member_scenario");
+ e.innerHTML = member_scenario;
+//------------------------
+ 
+ 
+ //Update financials
+
+ 
+ var financials = "Discount rate: " + Number(Math.round(info.interest*100+'e2')+'e-2') + "%<br>" 
+ financials+= "Pension increases: " + Number(Math.round(info.escalation*100+'e2')+'e-2') +"%";
+ e = document.getElementById("financials");
+ e.innerHTML = financials;
+//------------------------ 
+ 
+//Update Male Mortality
+
+ var Male_Mortality = Number(Math.round(info.mortM.Loading*100+'e2')+'e-2') + "% of " + info.mortM.basetable + (info.mortM.ageRating !=0 ? " " + info.mortM.ageRating : "") ;
+ <!-- var Male_Mortality = info.mortM.Loading * 100 + "% of " + info.mortM.basetable + (info.mortM.ageRating !=0 ? " " + info.mortM.ageRating : "") ; -->
+ Male_Mortality+= (info.mortM.YearOrCalendar =="B" ? " YoB" : " Cal"); 
+ Male_Mortality+= " CMI_" + info.mortM.CMI_model + " L=" + info.mortM.LTT +"%" 
+ if(info.mortM.CMI_model >2015){Male_Mortality+=  " Sk=" + info.mortM.Sk;}
+ e = document.getElementById("Male_Mortality");
+ e.innerHTML = Male_Mortality;
+//------------------------ 
+
+//Update Female Mortality
+ var Female_Mortality = Number(Math.round(info.mortF.Loading*100+'e2')+'e-2') + "% of " + info.mortF.basetable + (info.mortF.ageRating !=0 ? " " + info.mortF.ageRating : "") ;
+ Female_Mortality+= (info.mortF.YearOrCalendar =="B" ? " YoB" : " Cal"); 
+ Female_Mortality+= " CMI_" + info.mortF.CMI_model + " L=" + info.mortF.LTT +"%" 
+ if(info.mortF.CMI_model >2015){Female_Mortality+=  " Sk=" + info.mortF.Sk;}
+ e = document.getElementById("Female_Mortality");
+ e.innerHTML = Female_Mortality;
+//------------------------ 
+
+
+var Other = "Spouses proportion: " + Number(Math.round(info.SDAR*100+'e2')+'e-2') + "%<br>";
+Other+="Proportion married: " + Number(Math.round(info.propM*100+'e2')+'e-2') + "% (M) / " + Number(Math.round(info.propF*100+'e2')+'e-2') +"% (F)<br>";
+Other+="Males older by: "  + info.malesOlderBy + " years" + "<br>";
+Other+="Guarantee: " + info.guarantee + " years" + "<br>";
+Other+="Frequency: " + info.frequency + "<br>";
+Other+="In advance: " + (info.inAdvance ? "Yes": "No") + "<br>";
+ e = document.getElementById("Other");
+ e.innerHTML = Other;
+ 
+}
+
+function calculateAnnuity(){
+//Copy code from previous 
+	
+
+
+}
+
+var info ={
+		age:60,
+		sex:0,
+		annuityType:2,
+		mortM:{
+			basetable:"",
+			baseYear:2000,
+			ageRating:0,
+			Loading:1,
+			lx: Array(120-0+1),
+			YOB:1990,
+			CMI_model:2017,
+			LTT:0.015,
+			Sk:7.5,
+			A:0,
+			YearOrCalendar:"B"
+		},
+		mortF:{
+			basetable:"",
+			baseYear:2000,
+			ageRating:0,
+			Loading:1,
+			lx: Array(120-0+1),
+			YOB:1990,
+			CMI_model:2017,
+			LTT:0.015,
+			Sk:7.5,
+			A:0,
+			YearOrCalendar:"B",
+		},	
+		propM:0.8,
+		propF:0.7,
+		malesOlderBy:3,
+		SDAR:0.5,
+		interest:0.04,
+		escalation:0.03,
+		guarantee:5,
+		frequency:12,
+		inAdvance:true,
+	
+	};
+
+
+function getAnnuityInputs(){
+
+
+	info.age = Number(document.getElementById("age").value);	
+	
+	var genders = document.getElementsByName("sex");
+	
+	for(i=0;i<2;i++){
+		if(genders[i].checked){
+			info.sex = Number(genders[i].value);
+		}
+	}
+		
+	//Get annuity type
+	var e = document.getElementById("annuityType");
+	info.annuityType = Number(e.options[e.selectedIndex].value);
+	
+	e = document.getElementById("mortM");
+	//var mortM = e.options[e.selectedIndex].value;
+	info.mortM.basetable = e.options[e.selectedIndex].value;
+	info.mortM.ageRating = Number(document.getElementById("AgeRating_M").value);
+	info.mortM.Loading = Number(document.getElementById("Qx_M").value)/100;
+
+	
+	e = document.getElementById("ImpModelYear_M");
+	info.mortM.CMI_model = e.options[e.selectedIndex].value;
+	
+	e = document.getElementById("ImpModelLTT_M");
+	info.mortM.LTT = e.options[e.selectedIndex].value;
+
+	
+	e = document.getElementById("ImpModelSk_M");
+	info.mortM.Sk = e.options[e.selectedIndex].value;
+	
+	e = document.getElementById("ImpModelA_M");
+	info.mortM.A = e.options[e.selectedIndex].value;
+	
+	e = document.getElementById("mortF");
+	info.mortF.basetable = e.options[e.selectedIndex].value;
+	info.mortF.ageRating = Number(document.getElementById("AgeRating_F").value);
+	info.mortF.Loading = Number(document.getElementById("Qx_F").value)/100;
+	
+	e = document.getElementById("ImpModelYear_F");
+	info.mortF.CMI_model = e.options[e.selectedIndex].value;
+
+	e = document.getElementById("ImpModelLTT_F");
+	info.mortF.LTT = e.options[e.selectedIndex].value;
+	
+	e = document.getElementById("ImpModelSk_F");
+	info.mortF.Sk = e.options[e.selectedIndex].value;
+	
+	e = document.getElementById("ImpModelA_F");
+	info.mortF.A = e.options[e.selectedIndex].value;
+	
+	
+	
+	
+	//Get YOB or Calendar
+	var BirthorCalendar = document.getElementsByName("YearCalendarM");
+	for(i=0;i<2;i++){
+		if(BirthorCalendar[i].checked){
+			info.mortM.YearOrCalendar = BirthorCalendar[i].value;
+		}
+	}
+
+	BirthorCalendar = document.getElementsByName("YearCalendarF");
+		for(i=0;i<2;i++){
+		if(BirthorCalendar[i].checked){
+			info.mortF.YearOrCalendar = BirthorCalendar[i].value;
+		}
+	}
+	
+	//Get proportion married
+	info.propM = Number(document.getElementById("propM").value)/100;
+	info.propF = Number(document.getElementById("propF").value)/100;
+	
+	//Get Males older by
+	info.malesOlderBy = Number(document.getElementById("malesOlderBy").value);
+	
+	//Get YOB
+	var YOB = Number(document.getElementById("YOB").value);
+	if(info.sex==0){ //if male
+		info.mortM.YOB = YOB;
+		info.mortF.YOB = YOB + info.malesOlderBy;
+	}else{
+		info.mortM.YOB = YOB - info.malesOlderBy;
+		info.mortF.YOB = YOB;
+	}
+
+	
+	//Get SDAR
+	info.SDAR = Number(document.getElementById("SDAR").value)/100;
+
+	//Get Interest
+	info.interest = Number(document.getElementById("Int").value)/100;
+	
+	//Get Escalation
+	info.escalation = Number(document.getElementById("Esc").value)/100;
+	
+	//Get Guarantee
+	info.guarantee = Number(document.getElementById("Guarantee").value);
+
+	//Get Frequency
+	info.frequency = Number(document.getElementById("Frequency").value);
+	
+	//Get inAdvance choice
+	var inAdvanceOptions = document.getElementsByName("inAdvance");
+	var inAdvance;
+	for(i=0;i<2;i++){
+		if(inAdvanceOptions[i].checked){
+			info.inAdvance = inAdvanceOptions[i].value==="Yes";
+		}
+	}
+
+	return info;
+	
+	}
+
+
+
+
+</script>
+
+
+</html>

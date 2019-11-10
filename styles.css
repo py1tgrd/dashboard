@@ -1,0 +1,338 @@
+
+/*
+Media queries don't seem to be working!
+Add back in FAB and ...
+How to make max width work, again, with media queries, and perhaps remove grey border?
+Padding for % from the top needs to tweak, via media query
+*/
+
+
+
+
+:root{
+	--color-light: #E6E7E8;
+	--color-card:white;
+	--color-light-dark: #CCC;	
+	--color-primary:#6002EE;
+	--color-secondary:#ee6002;
+	--color-primary-light:#d4bff9;
+	--page-width:275px;
+}
+
+/*
+font-weight:
+400 - Regular
+700 - Bold
+
+
+*/
+
+*{
+	padding:0;
+	margin:0;
+	box-sizing:border-box;
+	font-family: "Helvetica", Sans-Serif;
+	font-size:30px; 
+}
+
+
+/*Simple change to make responsive*/
+@media only screen (max-width: 600px){
+	*{
+		font-size:16px;
+	}
+	
+	.card_container{
+		max-width:715px;
+	}
+	
+}
+
+
+body{
+	background-color: var(--color-light);	
+}
+
+.container{
+	display:flex;
+	flex-direction:row;
+	flex: 1 1 auto;
+	align-items:flex-start; /*means that the box doesn't expand to the bottom */
+}
+
+.card_container.standard{
+	overflow:visible;
+}
+
+.card_container{
+	display:flex;
+	flex: 1 1 auto;
+	align-items:start;
+	overflow:hidden;
+	/*visible to show again */
+	/* width:var(--page-width); */
+	min-height:1000px; /*How to make this flex*/
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+	margin: 25px 25px;
+	background-color:var(--color-card);
+	
+}
+
+.wrapper{
+	display:flex;
+	flex: 1 1 auto;
+	position:relative;
+	background-color:white;
+	transition: transform 0.4s;
+}
+
+.slide-in{
+	/* transform:translateX(-275px); */
+	transform:translateX(-100vw);
+}
+
+.card{
+	display:flex;
+	flex-direction:column;
+	flex:1 1 auto; /* grow-none, shrink-none, basis - how spreads out */
+
+	background-color:var(--color-card);
+	/* width:var(--page-width); */
+	/* min-height:300px; */
+	/* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+	/* position:relative; */	
+}
+
+.card2, .card3, .card4, .card5, .card6{
+	position:absolute;
+	width:100%;
+	transform:translateX(100vw);
+}
+
+.card.hidden{
+	/* display:none; */
+	visibility:hidden;
+}
+
+/* Main header */
+.card_header{
+	display:flex;
+	flex: 1 1 auto;
+	position:relative;
+	
+	min-height:75px;
+	background-color:var(--color-primary);
+	padding:10px 10px;
+	color:white;
+	font-weight:500;
+	font-size:1.2rem;
+	
+	cursor:default;
+}
+
+/*buttons in the main header*/
+.fab{
+	display:none;
+	position:absolute;
+	border-style:none;
+	/* color:black; */
+	bottom:-19px;
+	right:30px;
+	font-size:1.5rem;
+	background-color:var(--color-secondary);
+	border-radius: 100%;
+	height:40px;
+	width:40px;
+	margin:0px;
+	padding-top:5px;
+	text-align:center;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	z-index:1000;
+	
+}
+
+.explore{
+	display:none;
+	position:absolute;
+	top:7px;
+	right:15px;
+	font-weight:700;
+}
+/* --- */
+
+
+.card_body{
+	display:flex;
+	flex-direction:column;
+	flex: 1 1 auto;
+	position: relative;
+	
+
+	/* justify-content:flex-start;	 */
+	
+}
+
+.card_item{
+	/* border: 1pt solid; */
+	display:flex;
+	flex-direction:column;
+	flex: 1 1 auto;
+	position:relative;
+	padding:10px 30px 10px 30px;
+	border-bottom: 1pt solid var(--color-light-dark);
+	
+}
+
+.card_item:last-of-type{
+	border-bottom: none;
+}
+
+.card_item.home_screen{
+	padding:10px 30px 10px 10px;
+}
+
+.result{
+	font-weight:700;
+	background-color:var(--color-primary-light);
+	/* box-shadow: 0 0 8px 0 rgba(0,0,0,0.2); */
+	border:none;
+	margin:0;
+	padding:10px 30px 10px 10px;
+	
+}
+
+.card_heading{
+	display:flex;
+	flex:1 1 auto;
+	font-weight:700;
+	font-size:1rem;
+	color:var(--color-primary);
+	
+	margin: 0 0 5px 0;
+}
+
+.card_subheading{
+	display:flex;
+	flex:1 1 auto;
+	font-size:0.8rem;
+	line-height: 1.1rem;
+}
+
+ul{
+	list-style-type: none;
+}
+
+i {
+  border: solid var(--color-primary);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  position:absolute;
+  right:15px;
+  top:50%;
+    transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+
+
+/* Control formatting */
+
+.text_Input, select{
+	width:100%;	
+	border:none;
+	/* padding:10px 10px 5px 10px; */
+	padding:0.7rem 0.7rem 0.3rem 0.7rem;
+	text-align:right;	
+	background: var(--color-light);
+	border-radius: 5px 5px 0 0;
+	border-bottom: 2px solid var(--color-light-dark);
+}
+
+.pc_input{
+	/* padding:10px 20px 5px 10px; */
+	padding:0.7rem 1.4rem 0.3rem 0.7rem;
+}
+
+
+select{
+	text-align-last:right;
+	padding-right:0;
+}
+
+.text_Input:focus, select:focus{
+	outline:none;
+	border-bottom: 2px solid var(--color-primary);
+}
+
+
+option{
+	direction:rtl;
+}
+
+.btn{
+	font-size:1rem;
+	width:100px;
+	padding: 10px;
+	border:none;
+	border-radius: 5px;
+	box-shadow:none;
+	background-color: var(--color-primary);
+	color:white;
+	margin:auto;
+	margin-top:20px;
+
+}
+
+.radio_container{
+	display:inline-block;
+	position:relative;
+	/* border: 1px solid; */
+	min-width:100px;
+}
+
+.radio_container input{
+	display:absolute;
+	opacity:0;
+	cursor:pointer;
+	height:0;
+	width:0;
+}
+
+.radio_mark{
+	/* margin:auto; */
+	margin-right:0.3rem;
+	padding: 7px 5px 7px 5px;
+	text-align:center;
+	/* width:4rem; */
+	/* border: 1pt solid;  */
+	border-radius:20px;
+	background-color: var(--color-light);
+	color: var(--color-light-dark);
+}
+
+
+.radio_container input:checked ~ .radio_mark{
+	color:var(--color-primary);
+	background-color: var(--color-primary-light);
+	
+}
+
+#Other{
+	line-height:1.4rem; /*1.3rem to 1.7 rem */
+}
+
+
+.percentage_holder{
+	display:flex;
+	flex: 1 1 auto;
+	position:relative;
+}
+
+.percentagePadding{
+	position:absolute;
+	/* right:5px; */
+	/* top:10px; */
+	right: 0.3rem;
+	top: 0.7rem;
+}
