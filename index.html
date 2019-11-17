@@ -1,27 +1,14 @@
 <!-- TODO
 Height is consistent (max height 700), but
----Can I make the height automatically go to the biggest???? - probably not???
 Drop down color light grey (not blue) - cannot do easily with control (rendered by OS - can make custom with divs = pain!)
 
-
-Make mobile friendly
---Doens't expand to full width
---Mortality cards cut off at the bottom
---Back arrows don't show up (js still works)
---Can I change the color of the mobile browser screen and make it disapper? 
---Annuity factor title very small!!
-
-
-
-Can make it expand to full width, with a couple of flex 1 1 auto - e.g. in wrapper
-But need to update how the transitions work
-
-
-
-
+FAB not showing on Android 
+Height of header still looks too big
+Sticky header
+Make Go move to next item
+On mobile version, clicking on input selects whole input
 On select tab, set autofocus to top variable
-Decide if FAB is really needed? I think it is!
-Add in annuity code
+Think about how button clicking will work
 
 
 
@@ -40,8 +27,9 @@ Consider born in vs.  Age now
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="theme-color" content="#6002EE">
-	
+	<meta name="apple-mobile-web-app-status-bar-style" content="#6002EE">
 	<link rel="stylesheet" href="./styles.css"/>
+	<script  type="text/javascript" src="./script.js"/></script>
 	
 </head>
 
@@ -57,9 +45,9 @@ Consider born in vs.  Age now
 		<button class="explore">...</button>
 	</div>
 	<div class="card_body">
-		<div class="card_item result">
+		<div class="card_item result" id="annuity_result">
 		
-		Result = 26.544
+		Result = ...
 		
 		</div>
 		<div class="card_item home_screen" id="screen2">
@@ -559,7 +547,7 @@ document.getElementById("screen6_home").addEventListener('click', function() {mo
 
 
 function test(){
-	alert("testing");
+	alert("testing");	
 }
 
 
@@ -680,9 +668,12 @@ Other+="In advance: " + (info.inAdvance ? "Yes": "No") + "<br>";
 }
 
 function calculateAnnuity(){
-//Copy code from previous 
-	alert("test");
 
+	getAnnuityInputs();
+	var s = document.getElementById("annuity_result");
+	s.innerHTML = 'Result = ' + test_annuity(info.age, info.sex, info.annuityType, info.mortM, info.mortF, info.propM, info.propF, info.malesOlderBy, info.SDAR, info.interest, info.escalation, info.guarantee,info.frequency, info.inAdvance);
+	//s.innerHTML="Result = " + test_function();
+	
 
 }
 

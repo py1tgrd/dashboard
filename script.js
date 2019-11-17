@@ -39,7 +39,12 @@ Make base year read in less hacky
 var CMI_M; //global improvements table for males
 var CMI_F; //global improvements table for females
 
-function test(age, sex, annuityType, mortM, mortF, propM, propF, malesOlderBy, SDAR, interest, escalation, guarantee, frequency, inAdvance){
+function test_function(){
+	return 100;
+}
+
+
+function test_annuity(age, sex, annuityType, mortM, mortF, propM, propF, malesOlderBy, SDAR, interest, escalation, guarantee, frequency, inAdvance){
 	
 	factor = AnnuityFactor(age, sex, annuityType, mortM, mortF, propM, propF, malesOlderBy, SDAR, interest, escalation, guarantee, frequency, inAdvance);	
 	return Number(Math.round(factor+'e4')+'e-4');
