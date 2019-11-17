@@ -27,7 +27,10 @@ Consider born in vs.  Age now
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="theme-color" content="#6002EE">
+	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#6002EE">
+	
+	
 	<link rel="stylesheet" href="./styles.css"/>
 	<script  type="text/javascript" src="./script.js"/></script>
 	
@@ -39,17 +42,14 @@ Consider born in vs.  Age now
 <div class="wrapper" id="wrapper">
 	
 	<div class="card card1" id="home_screen">
-	<div class="card_header">
+	<div class="card_header" id="card_header_front">
 		Annuity factor
-		<button class="fab" id="calculateAnnuity">&#8635;</button>
+		<div class="card_item result" id="annuity_result">...</div>
+		<button class="fab change" id="calculateAnnuity"></button>
 		<button class="explore">...</button>
 	</div>
 	<div class="card_body">
-		<div class="card_item result" id="annuity_result">
 		
-		Result = ...
-		
-		</div>
 		<div class="card_item home_screen" id="screen2">
 		<div class="card_heading">Member scenario </div>
 		
@@ -522,8 +522,6 @@ Consider born in vs.  Age now
 
 <script>
 
-<!-- document.addEventListener('load', function(){displayAnnuityInputs()}); -->
-
 
 document.getElementById("calculateAnnuity").addEventListener('click', function() {calculateAnnuity()});
 document.getElementById("screen2").addEventListener('click', function() {moveRight(2)});
@@ -539,16 +537,30 @@ document.getElementById("screen6_home").addEventListener('click', function() {mo
 
 
 
-<!-- document.getElementById("btn_update_1").addEventListener('click', function() {displayAnnuityInputs()}); -->
-<!-- document.getElementById("btn_update_2").addEventListener('click', function() {test()}); -->
-<!-- document.getElementById("btn_update_3").addEventListener('click', function() {test()}); -->
-<!-- document.getElementById("btn_update_4").addEventListener('click', function() {test()}); -->
-<!-- document.getElementById("btn_update_5").addEventListener('click', function() {test()}); -->
+//Test onchange function
+<!-- document.getElementById("YOB").addEventListener('change', function() {NotifyChange()}); -->
+
+var Inputs = document.querySelectorAll("input");
+for (index = 0; index < Inputs.length; ++index) {
+    Inputs[index].addEventListener("change", NotifyChange);
+}
+
+var Selects = document.querySelectorAll("select");
+for (index = 0; index < Selects.length; ++index) {
+    Selects[index].addEventListener("change", NotifyChange);
+}
+
 
 
 function test(){
 	alert("testing");	
 }
+
+
+function NotifyChange(){
+	document.getElementById("calculateAnnuity").classList.add("change");
+}
+
 
 
 function updateVisibleScreens(screen){
@@ -568,23 +580,6 @@ function updateVisibleScreens(screen){
 }
 
 function moveRight(screen){
-	/*
-	var elements = document.getElementsByClassName("card");
-	var regex = new RegExp("card"+screen,"i");
-	
-	for(i=0;i<elements.length;i++){
-		elements[i].classList.remove("hidden");
-		
-		if(elements[i].className.search(regex)>-1 || elements[i].className=="card card1"){
-			//do nothing if matching, or if homescreen
-		}else{
-			console.log(elements[i].className);
-			//otherwise, add hidden tag
-			elements[i].className+=" hidden";		
-			console.log(elements[i].className);
-			}
-		}
-	*/
 	
 	updateVisibleScreens(screen);
 	var e = document.getElementById("wrapper");
@@ -601,7 +596,7 @@ function moveLeft(){
 
 
 function displayAnnuityInputs(){
-//To write code to update front page!
+
 		
 		getAnnuityInputs(); 
 		
@@ -638,6 +633,9 @@ member_scenario+=  " annuity from " + info.age;
 //Update Male Mortality
 
  var Male_Mortality = Number(Math.round(info.mortM.Loading*100+'e2')+'e-2') + "% of " + info.mortM.basetable + (info.mortM.ageRating !=0 ? " " + info.mortM.ageRating : "") ;
+ 
+ 
+ //100% of <span class="accent">S2PA</span> YoB <span class="accent">CMI_2017</span> L=1.5% Sk=7.5
  <!-- var Male_Mortality = info.mortM.Loading * 100 + "% of " + info.mortM.basetable + (info.mortM.ageRating !=0 ? " " + info.mortM.ageRating : "") ; -->
  Male_Mortality+= (info.mortM.YearOrCalendar =="B" ? " YoB" : " Cal"); 
  Male_Mortality+= " CMI_" + info.mortM.CMI_model + " L=" + info.mortM.LTT +"%" 
@@ -671,9 +669,9 @@ function calculateAnnuity(){
 
 	getAnnuityInputs();
 	var s = document.getElementById("annuity_result");
-	s.innerHTML = 'Result = ' + test_annuity(info.age, info.sex, info.annuityType, info.mortM, info.mortF, info.propM, info.propF, info.malesOlderBy, info.SDAR, info.interest, info.escalation, info.guarantee,info.frequency, info.inAdvance);
+	s.innerHTML = test_annuity(info.age, info.sex, info.annuityType, info.mortM, info.mortF, info.propM, info.propF, info.malesOlderBy, info.SDAR, info.interest, info.escalation, info.guarantee,info.frequency, info.inAdvance);
 	//s.innerHTML="Result = " + test_function();
-	
+	document.getElementById("calculateAnnuity").classList.remove("change");
 
 }
 
@@ -719,7 +717,11 @@ var info ={
 	
 	};
 
+	
 
+	
+	
+	
 function getAnnuityInputs(){
 
 
