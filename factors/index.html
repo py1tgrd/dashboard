@@ -1,0 +1,221 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#6002EE">
+	<title>Factors</title>
+	<link rel="stylesheet" href="./styles.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	
+	<!-- <link rel="stylesheet" href="./print.css"/> -->
+	
+</head>
+
+
+<body>
+
+
+<div class="card_container">
+
+<div class="card" id="table">
+
+	<div class="container">
+		
+		<div class="navbar">
+			<br/>
+			<button class="fa fa-cog test" id="btn_setting"></button>
+		</div>
+		<div class="card_header">Factor</div>
+
+		<div class="card_body">
+		<table id="tableOutput">
+		<tr>
+			<th>Age</th>
+			<th class="value">Male</th>
+			<th class="value">Female</th>
+			<th class="value">Unisex</th>
+		</tr>
+		<tr>
+			<td>55</td>
+			<td class="value">20.000</td>
+			<td class="value">22.555</td>
+			<td class="value">22.743</td>
+		</tr>
+		<tr>
+			<td>60</td>
+			<td class="value">20.000</td>
+			<td class="value">22.555</td>
+			<td class="value">22.743</td>
+		</tr>
+		<tr>
+			<td>62</td>
+			<td class="value">20.000</td>
+			<td class="value">22.555</td>
+			<td class="value">22.743</td>
+		</tr>
+		<tr>
+			<td>65</td>
+			<td class="value">20.000</td>
+			<td class="value">22.555</td>
+			<td class="value">22.743</td>
+		</tr>
+		
+		</table>
+
+		</div>
+			
+		<div class="card_footer">
+		<div class="footer_content" id="card_description">Annuities in 2019, payable from age or 65 if higher. Unisex assumes 40% males</div>
+		
+		</div>
+
+	
+		
+	</div>
+	
+	
+</div>
+
+<div class="card" id="settings">
+	<div class="container">
+		<div class="navbar">Settings
+			<button class="fa fa-angle-left test" id="btn_return"></button>
+		</div>
+		<div class="card_body settings">
+		<div class="setting_row"><div>Year</div><input type="number" value="2019" id="year" step ="1"/></div>
+		<div class="setting_row"><div>From age</div><input type="number" value="55" id="from" step ="1"/></div>
+		<div class="setting_row"><div>To age</div><input type="number" value="75" id="to" step ="1"/></div>
+		<div class="setting_row"><div>Step size</div><input type="number" value="5" id="step" step ="1"/></div>
+		<div class="setting_row"><div>Minimum annuity age</div><input type="number" id="minage" value="65"/></div>	
+		<div class="setting_row">
+			<div class="percentage_holder">% Male (for unisex)</div>
+			<input type="number" value="40" id="unisex" step="1"></input>
+			<span class="percentagePadding">%</span>
+		</div>	
+		
+		
+		
+		
+		
+	</div>
+</div>
+
+</div>
+
+<div class="card" id="mask">
+
+</div>
+
+</div>
+
+
+
+
+</div>
+</body>
+
+<script>
+
+window.onload =  updateOutput;
+
+
+/*Add Event Listeners*/
+document.getElementById("btn_setting").addEventListener('click', function() {toggleSettings()});
+document.getElementById("btn_return").addEventListener('click', function() {toggleSettings()});
+
+
+var table_output = [];
+
+var setting_output = {
+	Year:2019,
+	From:55,
+	To:75,
+	Step:5,
+	MinAge:65,
+	Unisex:50,
+};
+
+
+
+
+function toggleSettings(){
+	document.getElementById("table").classList.toggle("slidein");
+	document.getElementById("settings").classList.toggle("slidein");
+	document.getElementById("mask").classList.toggle("slidein");
+	
+	updateOutput();
+	
+}
+
+
+
+function updateOutput(){
+
+	readSettings();
+
+//Update table of annuities
+	var y='<tr><th>Age</th><th class="value">Male</th><th class="value">Female</th><th class="value">Unisex</th></tr>';
+	
+	table_output.forEach(function(item, index){
+		var x = "<tr><td>"+item.Age+"</td>";
+		x+='<td class="value">'+item.Male+"</td>"
+		x+='<td class="value">'+item.Female+"</td>"
+		x+='<td class="value">'+item.Unisex+"</td>"
+		x+='</tr>'
+		y+=x;
+		//console.log(x);	
+	});
+	
+	document.getElementById("tableOutput").innerHTML = y;
+
+
+//Update description
+
+y = 'Annuities in ' + setting_output.Year +', payable from age or ';
+y+=setting_output.MinAge +' if higher. Unisex assumes ';
+y+= setting_output.Unisex+ '% males';
+
+
+document.getElementById("card_description").innerHTML = y;
+}
+
+function readSettings(){
+
+	//read settings
+	setting_output.Year = Number(document.getElementById("year").value);
+	setting_output.From 	= Number(document.getElementById("from").value);
+	setting_output.To = Number(document.getElementById("to").value);
+	setting_output.Step = Number(document.getElementById("step").value);
+	setting_output.MinAge = Number(document.getElementById("minage").value);
+	setting_output.Unisex = Number(document.getElementById("unisex").value);
+
+	//update annuities
+	
+	table_output = [];
+	var i = 0;
+
+	for(i=setting_output.From; i<=setting_output.To; i+=setting_output.Step){
+		console.log(i);
+		table_output.push(
+		{
+		Age:i, 
+		Male:"20.000", 
+		Female:"22.555", 
+		Unisex:"22.743"
+		});
+	}
+
+	
+	
+	
+}
+
+
+
+
+</script>
+
+
+
+</html>

@@ -1,0 +1,286 @@
+/* 
+Add numbers to the left of the text boxes
+Add (x) delete cross
+Also add up / down arrow to the right (sounds hard)
+Read from the file path locally, and save as well (if possible)
+
+ */
+
+
+
+
+
+:root{
+	--color-light: #E6E7E8;
+	--color-card:white;
+	--color-light-dark: #CCC;	
+	--color-primary:#6002EE;
+}
+
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family: "Helvetica", Sans-Serif;
+	font-size:16px; 
+	
+}
+
+body{
+	display:flex;
+	flex: 1 0 auto;
+	align-items:start;
+	justify-content:center;
+	height:100vh;
+	padding-top:100px;
+	background-color:var(--color-light);
+	counter-reset:section;
+}
+
+
+.card, .card_container{
+	display:flex;
+	flex: 1 0 auto;
+	max-width:400px;
+	min-height:350px;
+	border-radius:20px;
+	background-color:var(--color-card);
+}
+
+.card_container{
+	overflow:hidden;
+	position:relative;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.card{
+	display:flex;
+	flex:1 0 auto;
+	justify-content:center;
+	position:relative;
+	padding:20px;
+	transition: transform 0.4s;
+}
+
+.container{
+	display:flex;
+	flex:1 1 auto;
+	flex-direction:column;
+	align-content:center;
+	position:relative;
+	margin:10px 30px 10px 30px;
+	max-width:100%;
+	background-color:var(--color-card);
+	
+	
+}
+
+.navbar{
+	display:flex;
+	flex:0 1 auto;
+	justify-content:flex-start;
+	position:relative;
+	width:100%;
+	margin-bottom:10px;
+	color:black;
+	font-weight: 600;
+}
+
+
+
+.card_header{
+	display:none;
+	flex:1 1 auto;	
+	background-color:var(--color-card);
+	color:var(--color-primary);
+	font-weight:600;
+	margin-bottom:10px;
+	
+}
+
+.card_body{
+	display:flex;
+	flex:1 1 auto;
+	justify-content:start;
+	position:relative;
+	background-color:var(--color-card);
+}
+
+
+table{
+	border-collapse:collapse;
+}
+
+
+td, th{
+	text-align:left;
+	padding: 12px 12px 12px 12px;
+	font-weight:500;
+	background-color:none;
+	
+}
+
+th{
+	font-weight:550;
+	border-top: 1pt solid var(--color-light-dark);
+}
+
+
+tr{
+	border-bottom: 1pt solid var(--color-light-dark);
+
+	
+}
+
+tr:hover{
+	background-color:var(--color-light);
+}
+
+tr:first-child:hover{
+	background-color:var(--color-card);
+}
+
+
+.value{
+	text-align:right;
+	width:5rem;
+}
+
+.card_footer{
+	display:flex;
+	flex:1 1 auto;
+	justify-content:flex-start;
+	position:relative;
+	width:100%;
+	line-height:1rem;
+}
+
+.footer_content{
+	display:flex;
+	position:relative;
+	margin-top: 10px;
+	margin-bottom:0;
+	padding-right:10px;
+	font-size:0.7rem;
+}
+
+.icon{
+	position:absolute;
+	top:-5px;
+	right:-3px;
+	
+}
+
+.test{
+	position:absolute;
+	right:0;
+	width:1rem;
+	text-align:center;
+	color:darkgray;
+	
+}
+
+.test:hover{
+	cursor: pointer;
+}
+
+button{
+	outline:none;
+	background-color:var(--color-card);
+	border:none;
+	
+}
+
+
+
+/* Settings card */
+
+.settings{	
+	flex: 0 1 auto;
+	flex-direction:column;
+}
+
+
+.settings > div{
+	margin-bottom:10px;
+
+}
+.setting_row{
+	display:flex;
+	flex:1 1 auto;
+	
+}
+
+#settings{
+	position:absolute;
+	z-index:20;
+	height:350px;
+	transform:translateX(100%);
+}
+
+
+#settings.slidein{
+	transform:translateX(0%);
+}
+
+
+
+.setting_row > div{
+	padding:0.7rem 0 0.3rem 0;
+	min-width:10rem;
+}
+
+input[type="number"]{
+	
+	width:100%;	
+	border:none;
+	/* padding:10px 10px 5px 10px; */
+	padding:0.7rem 1.1rem 0.3rem 0.7rem;
+	text-align:right;	
+	background: var(--color-light);
+	border-radius: 5px 5px 0 0;
+	border-bottom: 2px solid var(--color-light-dark);
+}
+
+input[type="number"]:focus{
+	outline:none;
+	border-bottom: 2px solid var(--color-primary);
+}
+
+
+.percentage_holder{
+	display:flex;
+	flex: 1 1 auto;
+	position:relative;
+}
+
+.percentagePadding{
+	position:absolute;
+	/* right:5px; */
+	/* top:10px; */
+	right: 0.2rem;
+	bottom: 1.05rem;
+}
+
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{
+	 -webkit-appearance:none; 
+	margin:0; 
+} 
+
+/* Opaque mask */
+
+#mask{
+	display: flex;	
+	flex: 1 1 auto;
+	z-index:5;
+	min-width:400px;
+	background-color:black;
+	opacity:0.5;
+}
+
+#mask.slidein{
+	transform:translateX(-100%);
+}
+
+
