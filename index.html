@@ -1,4 +1,11 @@
 <!-- TODO
+
+Move copy button to top right - to share  <i class="fas fa-share"></i>
+On hover - xl inputs
+
+QR code sharing!!
+
+
 Height is consistent (max height 700), but
 Drop down color light grey (not blue) - cannot do easily with control (rendered by OS - can make custom with divs = pain!)
 
@@ -9,6 +16,10 @@ Make Go move to next item
 On mobile version, clicking on input selects whole input
 On select tab, set autofocus to top variable
 Think about how button clicking will work
+
+
+
+
 
 
 
@@ -32,6 +43,7 @@ Consider born in vs.  Age now
 	
 	
 	<link rel="stylesheet" href="./styles.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script  type="text/javascript" src="./script.js"/></script>
 	
 </head>
@@ -39,10 +51,13 @@ Consider born in vs.  Age now
 <body onload="displayAnnuityInputs()">
 <div class="container">
 <div class="card_container">
+
 <div class="wrapper" id="wrapper">
 	
 	<div class="card card1" id="home_screen">
+	
 	<div class="card_header" id="card_header_front">
+	<button class="fa fa-share test" id="copybutton"></button>		
 		Annuity factor
 		<div class="card_item result" id="annuity_result">...</div>
 		<button class="fab change" id="calculateAnnuity"></button>
@@ -92,6 +107,8 @@ Consider born in vs.  Age now
 			</div>
 			<i class="arrow right"></i>
 		</div>	
+		<!-- <button id="copybutton">CLICK</button> -->
+		
 	</div>
 	<!-- <input type="submit" value="UPDATE" class="btn" id="btn_update_1"> -->
 
@@ -205,7 +222,12 @@ Consider born in vs.  Age now
 	<div class="card_heading">Base table</div>
 		<div class="card_subheading"> 
 				<select id="mortM">
-					<option value="S2PMA" class="text_Input">S2PMA</option>
+					<option value="S1PMA" class="text_Input">S1PMA</option>
+					<option value="S1NMA" class="text_Input">S1NMA</option>
+					<option value="S2PMA" class="text_Input" selected>S2PMA</option>
+					<option value="S2NMA" class="text_Input">S2NMA</option>
+					<option value="S3PMA" class="text_Input">S3PMA</option>
+					<option value="S3NMA" class="text_Input">S3NMA</option>
 				</select>
 		</div>	
 	</div>
@@ -305,7 +327,12 @@ Consider born in vs.  Age now
 	<div class="card_heading">Base table</div>
 		<div class="card_subheading"> 
 				<select id="mortF">
-					<option value="S2PFA" class="text_Input">S2PFA</option>
+					<option value="S1PFA" class="text_Input">S1PFA</option>
+					<option value="S1NFA" class="text_Input">S1NFA</option>
+					<option value="S2PFA" class="text_Input" selected>S2PFA</option>
+					<option value="S2NFA" class="text_Input">S2NFA</option>
+					<option value="S3PFA" class="text_Input">S3PFA</option>
+					<option value="S3NFA" class="text_Input">S3NFA</option>
 				</select>
 		</div>	
 	</div>
@@ -536,6 +563,62 @@ document.getElementById("screen5_home").addEventListener('click', function() {mo
 document.getElementById("screen6_home").addEventListener('click', function() {moveLeft()});
 
 
+document.getElementById("copybutton").addEventListener('click', function() {copytest()});
+
+function copytest(){
+	var copy_String = info.age + '\r';
+		copy_String += (info.sex == 0 ? info.mortM.YOB : info.mortF.YOB) + '\r';
+		copy_String += (info.sex == 0 ? 'M' : 'F') + '\r';
+		copy_String += info.annuityType  + '\r';
+		
+		//Male mortality string
+		copy_String += info.mortM.basetable + "," + info.mortM.ageRating + "," + info.mortM.Loading + ";" ;
+		if (info.mortM.CMI_model != 2015){
+			copy_String += "CMI_" + info.mortM.CMI_model + "_L" + info.mortM.LTT + "%" + "_S" + info.mortM.Sk +"_M" + ",B" + '\r';  //add Calendar year onto this
+		}
+		else{
+			copy_String += "CMI_" + info.mortM.CMI_model + "_" + info.mortM.LTT + "%" + "_0%" + "_M" + ",B" + '\r';  //add Calendar year onto this
+		}
+		//Female mortality string
+		copy_String += info.mortF.basetable + "," + info.mortF.ageRating + "," + info.mortF.Loading + ";" ;
+		if (info.mortF.CMI_model != 2015){
+			copy_String += "CMI_" + info.mortF.CMI_model + "_L" + info.mortF.LTT + "%" + "_S" + info.mortF.Sk +"_F" + ",B" + '\r';  //add Calendar year onto this
+		}
+		else{
+			copy_String += "CMI_" + info.mortF.CMI_model + "_" + info.mortF.LTT + "%" + "_0%" + "_F" + ",B" + '\r';  //add Calendar year onto this
+		}
+		
+		
+		
+		copy_String += info.propM  + '\r';
+		copy_String += info.propF  + '\r';
+		copy_String += info.malesOlderBy  + '\r';
+		copy_String += info.SDAR  + '\r';
+		copy_String += info.interest  + '\r';
+		copy_String += info.escalation  + '\r';
+		copy_String += info.guarantee  + '\r';
+		copy_String += info.frequency  + '\r';
+		copy_String += info.inAdvance;
+		
+		
+		
+		
+		
+	
+	var  dummy = document.createElement("textarea");
+	//dummy.style.display='none'
+	document.body.appendChild(dummy);
+	dummy.value=copy_String;
+	dummy.select();
+	document.execCommand("copy");
+	document.body.removeChild(dummy);                                                                                    
+	
+//	console.log("run");
+//	console.log(dummy.value);
+	
+}
+
+
 
 //Test onchange function
 <!-- document.getElementById("YOB").addEventListener('change', function() {NotifyChange()}); -->
@@ -590,6 +673,8 @@ function moveLeft(){
 	displayAnnuityInputs();
 	var e = document.getElementById("wrapper");
 	e.classList.remove("slide-in");
+
+	
 	<!-- updateVisibleScreens(1); -->
 }
 
