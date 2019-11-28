@@ -46,6 +46,7 @@ var CMI_M; //global improvements table for males
 var CMI_F; //global improvements table for females
 var base_M; //global base table for males
 var base_F; //global base table for females
+var testYOB; //test to see if it is YOB which is affecting the outcome
 
 function test_function(){
 	return 100;
@@ -610,37 +611,52 @@ function GetRF(MortObject, Age, Year){
 	return MortObject.rf[Math.min(Math.max(Age-MortObject.minAge,0),MortObject.maxAge-1)][Math.min(Math.max(Year-MortObject.minYear,0),MortObject.maxYear-1)];
 }	
 	
-// function ApplyRF(mort_base, YOB, improvement){
+
 function ApplyRF(mort, improvement){
-	/* TODO
-	>) Include parameters properly
-	>) Make calendar year work too
-	*/
 	
-	
-	//Programmed for YOB, but TODO - Calendar year
-	//var mort_base = GetMortality("S2PMA");
 	var mort_projected = Array(120-0+1);
 	var baseYear = mort.baseYear; // ok
 	var mort_base = mort.lx;
 	var YOB = mort.YOB; //ok
 	
 	var qx=0;
-	var rf=0;
+	var rf=1; //changed from 0 - for ccal
+	
 	
 	mort_projected[0] = mort_base[0]; //First lx is unchanged (I think)
 	
+	
 	for(i=0;i<120;i++){ //is this correct, now that 121 - 1, rather than 120
 		qx = 1 - mort_base[i+1]/mort_base[i];
-		rf = GetRF(improvement,Math.max(i,improvement.minAge),Math.max(YOB+i,baseYear)) / GetRF(improvement,Math.max(i,improvement.minAge),baseYear); 
-		mort_projected[i+1]=mort_projected[i]*(1-qx*rf); 
-		if(isNaN(mort_projected[i+1])){
-			mort_projected[i+1]=0;
+		var y = improvement.minYear;
+		
+		if(mort.YearOrCalendar=='B'){//yob
+			for(i=0;i<120;i++){ //is this correct, now that 121 - 1, rather than 120
+				qx = 1 - mort_base[i+1]/mort_base[i];
+				rf = GetRF(improvement,Math.max(i,improvement.minAge),Math.max(YOB+i,baseYear)) / GetRF(improvement,Math.max(i,improvement.minAge),baseYear); 
+				mort_projected[i+1]=mort_projected[i]*(1-qx*rf); 
+				if(isNaN(mort_projected[i+1])){
+					mort_projected[i+1]=0;
+				}
+			}
+			
+		}else{//calendar  -- removed i next to yob... check
+			for(i=0;i<120;i++){ //is this correct, now that 121 - 1, rather than 120
+				qx = 1 - mort_base[i+1]/mort_base[i];
+				rf = GetRF(improvement,Math.max(i,improvement.minAge),Math.max(YOB,baseYear)) / GetRF(improvement,Math.max(i,improvement.minAge),baseYear); 
+				mort_projected[i+1]=mort_projected[i]*(1-qx*rf); 
+				if(isNaN(mort_projected[i+1])){
+					mort_projected[i+1]=0;
+				}
+			}
+
+
+
+		
 		}
+		
 	}
-	
-	// document.write(mort_projected[120]);
-	
+			
 	return mort_projected;
 }
 	

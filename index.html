@@ -145,7 +145,8 @@ Consider born in vs.  Age now
 	<div class="card_heading">Born in</div>
 		<div class="card_subheading"> 
 		<input type="number" id="YOB" value=1965 class="text_Input">
-		</div>	
+		</div>
+		<div id="YOB_detail">Aged 54 in 2019</div>
 	</div>
 	
 	<div class="card_item">
@@ -562,8 +563,18 @@ document.getElementById("screen4_home").addEventListener('click', function() {mo
 document.getElementById("screen5_home").addEventListener('click', function() {moveLeft()});
 document.getElementById("screen6_home").addEventListener('click', function() {moveLeft()});
 
-
 document.getElementById("copybutton").addEventListener('click', function() {copytest()});
+
+document.getElementById("YOB").addEventListener('change', function() {updateAge()});
+
+
+function updateAge(){
+	var d = new Date();
+	var currentYear = d.getFullYear();
+	var yob = document.getElementById("YOB").value;
+	 document.getElementById("YOB_detail").innerHTML = "Aged " + (currentYear - yob) + " in " + currentYear;
+}
+
 
 function copytest(){
 	var copy_String = info.age + '\r';
@@ -574,18 +585,18 @@ function copytest(){
 		//Male mortality string
 		copy_String += info.mortM.basetable + "," + info.mortM.ageRating + "," + info.mortM.Loading + ";" ;
 		if (info.mortM.CMI_model != 2015){
-			copy_String += "CMI_" + info.mortM.CMI_model + "_L" + info.mortM.LTT + "%" + "_S" + info.mortM.Sk +"_M" + ",B" + '\r';  //add Calendar year onto this
+			copy_String += "CMI_" + info.mortM.CMI_model + "_L" + info.mortM.LTT + "%" + "_S" + info.mortM.Sk +"_M" + "," + info.mortM.YearOrCalendar + '\r';  //add Calendar year onto this
 		}
 		else{
-			copy_String += "CMI_" + info.mortM.CMI_model + "_" + info.mortM.LTT + "%" + "_0%" + "_M" + ",B" + '\r';  //add Calendar year onto this
+			copy_String += "CMI_" + info.mortM.CMI_model + "_" + info.mortM.LTT + "%" + "_0%" + "_M" + "," + info.mortM.YearOrCalendar + '\r';  //add Calendar year onto this
 		}
 		//Female mortality string
 		copy_String += info.mortF.basetable + "," + info.mortF.ageRating + "," + info.mortF.Loading + ";" ;
 		if (info.mortF.CMI_model != 2015){
-			copy_String += "CMI_" + info.mortF.CMI_model + "_L" + info.mortF.LTT + "%" + "_S" + info.mortF.Sk +"_F" + ",B" + '\r';  //add Calendar year onto this
+			copy_String += "CMI_" + info.mortF.CMI_model + "_L" + info.mortF.LTT + "%" + "_S" + info.mortF.Sk +"_F" + "," + info.mortF.YearOrCalendar + '\r';  //add Calendar year onto this
 		}
 		else{
-			copy_String += "CMI_" + info.mortF.CMI_model + "_" + info.mortF.LTT + "%" + "_0%" + "_F" + ",B" + '\r';  //add Calendar year onto this
+			copy_String += "CMI_" + info.mortF.CMI_model + "_" + info.mortF.LTT + "%" + "_0%" + "_F" + "," + info.mortF.YearOrCalendar  + '\r';  //add Calendar year onto this
 		}
 		
 		
@@ -628,6 +639,7 @@ for (index = 0; index < Inputs.length; ++index) {
     Inputs[index].addEventListener("change", NotifyChange);
 }
 
+
 var Selects = document.querySelectorAll("select");
 for (index = 0; index < Selects.length; ++index) {
     Selects[index].addEventListener("change", NotifyChange);
@@ -638,6 +650,10 @@ for (index = 0; index < Selects.length; ++index) {
 function test(){
 	alert("testing");	
 }
+
+
+
+
 
 
 function NotifyChange(){
@@ -892,8 +908,8 @@ function getAnnuityInputs(){
 		info.mortM.YOB = YOB;
 		info.mortF.YOB = YOB + info.malesOlderBy;
 	}else{
-		info.mortM.YOB = YOB - info.malesOlderBy;
 		info.mortF.YOB = YOB;
+		info.mortM.YOB = YOB - info.malesOlderBy;			
 	}
 
 	

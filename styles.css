@@ -36,7 +36,7 @@ font-weight:
 	.card_container{
 		max-width:360px;
 		margin: 25px 25px;
-		border-radius:10px;
+		border-radius:5px;
 	}
 	
 }
@@ -423,6 +423,11 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 }
 
 
-
+#YOB_detail{
+	margin-top:5px;
+	font-size:0.8rem;
+	color:var(--color-primary);
+	text-align:right;
+}
 
 
