@@ -45,6 +45,8 @@ Consider born in vs.  Age now
 	<link rel="stylesheet" href="./styles.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script  type="text/javascript" src="./script.js"/></script>
+	<script  type="text/javascript" src="./qrcode.js"/></script>
+	<script  type="text/javascript" src="./jquery.min.js"/></script>
 	<title>Annuity factor</title>
 </head>
 
@@ -62,8 +64,8 @@ Consider born in vs.  Age now
 		<div class="dropdown-content" id="dropdown-content">
 			<a href="#" id="copybutton"><i class="fa fa-copy dropdown-icon"></i>Copy inputs to clipboard</a>
 			<a href="#" onclick='alert("Work in progress")'><i class="fa fa-share-alt dropdown-icon"></i>Share</a>
-			<a href="#" onclick='alert("Work in progress")'><i class="fa fa-qrcode dropdown-icon"></i>Scan QR code</a>
-			<a href="#" onclick='alert("Work in progress")'><i class="fa fa-camera dropdown-icon"></i>Generate QR code</a>
+			<a href="#" onclick='alert("Work in progress")'><i class="fa fa-camera  dropdown-icon"></i>Scan QR code</a>
+			<a href="#" id="generate-qr-click"><i class="fa fa-qrcode dropdown-icon"></i>Generate QR code</a>
 			<a href="#" id="close-menu"><i class="fa fa-window-close dropdown-icon"></i>Close</a>
 		</div>
 	</div>
@@ -121,6 +123,8 @@ Consider born in vs.  Age now
 		<!-- <button id="copybutton">CLICK</button> -->
 		
 	</div>
+	
+	
 	<!-- <input type="submit" value="UPDATE" class="btn" id="btn_update_1"> -->
 
 	<!--<div class="card">
@@ -507,6 +511,22 @@ Consider born in vs.  Age now
 </div>
 <!-- End of card -->
 
+<!-- Card screen start -->
+<div class="card card7">
+<div class="card_header" id="screen7_home">&#8592; QR code</div>
+	<div class="card_body">
+	<div class="card_item">
+	<div class="card_heading">QR code for inputs</div>
+		<div class="card_subheading QR-content"> 
+			<div id="qrcode"></div>
+		</div>	
+	</div>
+	
+	
+	</div>
+</div>
+<!-- End of card -->
+
 
 
 
@@ -574,19 +594,63 @@ document.getElementById("screen4_home").addEventListener('click', function() {mo
 document.getElementById("screen5_home").addEventListener('click', function() {moveLeft()});
 document.getElementById("screen6_home").addEventListener('click', function() {moveLeft()});
 
+document.getElementById("screen7_home").addEventListener('click', function() {moveLeft()});
+
+
 document.getElementById("menubutton").addEventListener('click', function() {toggleMenu()});
 
 document.getElementById("close-menu").addEventListener('click', function() {closeMenu()});
 
 
-
-
 document.getElementById("copybutton").addEventListener('click', function() {copytest()});
+
+
+document.getElementById("generate-qr-click").addEventListener('click', function() {generateQR()});
 
 document.getElementById("YOB").addEventListener('change', function() {updateAge()});
 
 
-
+var info ={
+		age:60,
+		sex:0,
+		annuityType:2,
+		mortM:{
+			basetable:"",
+			baseYear:2000,
+			ageRating:0,
+			Loading:1,
+			lx: Array(120-0+1),
+			YOB:1990,
+			CMI_model:2017,
+			LTT:0.015,
+			Sk:7.5,
+			A:0,
+			YearOrCalendar:"B"
+		},
+		mortF:{
+			basetable:"",
+			baseYear:2000,
+			ageRating:0,
+			Loading:1,
+			lx: Array(120-0+1),
+			YOB:1990,
+			CMI_model:2017,
+			LTT:0.015,
+			Sk:7.5,
+			A:0,
+			YearOrCalendar:"B",
+		},	
+		propM:0.8,
+		propF:0.7,
+		malesOlderBy:3,
+		SDAR:0.5,
+		interest:0.04,
+		escalation:0.03,
+		guarantee:5,
+		frequency:12,
+		inAdvance:true,
+	
+	};
 
 
 function updateAge(){
@@ -603,6 +667,40 @@ function toggleMenu(){
 function closeMenu(){
 	document.getElementById("dropdown-content").classList.remove("visible");
 }
+
+function generateQR(){
+	
+	//First part - remove any qxs
+	var info_clone = JSON.parse(JSON.stringify(info));
+	info_clone.mortM.lx=[];
+	info_clone.mortF.lx=[];
+	
+	//TODO - consider encoding to make QR code easier / quicker to read - see below
+	
+	var s = '{"a":65,"s":0,"aT":2,"mM":{"b":"S2PMA","bY":2007,"aR":0,"L":1,"lx":[],"YOB":1965,"CM":"2017","LTT":"1.5","Sk":"7.5","A":"0","Y":"B"},"mF":{"b":"S2PFA","bY":2007,"aR":0,"L":1,"lx":[],"YOB":1968,"CM":"2017","LTT":"1.5","Sk":"7.5","A":"0","Y":"B"},"pM":1,"pF":1,"mO":3,"SD":0.5,"i":0.04,"e":0.02,"g":5,"f":12,"iA":true}';
+	
+	
+	var qr_output = JSON.stringify(info_clone);
+	
+	document.getElementById("qrcode").innerHTML="";
+	
+	<!-- https://github.com/davidshimjs/qrcodejs -->
+	
+	var qrcode = new QRCode(document.getElementById("qrcode"), {
+		text: qr_output,
+		});
+
+	
+	
+	
+	
+	moveRight(7);
+	
+	qr_output = "";
+	info_clone = null;
+	closeMenu();
+}
+
 
 
 function copytest(){
@@ -806,52 +904,6 @@ function calculateAnnuity(){
 
 }
 
-var info ={
-		age:60,
-		sex:0,
-		annuityType:2,
-		mortM:{
-			basetable:"",
-			baseYear:2000,
-			ageRating:0,
-			Loading:1,
-			lx: Array(120-0+1),
-			YOB:1990,
-			CMI_model:2017,
-			LTT:0.015,
-			Sk:7.5,
-			A:0,
-			YearOrCalendar:"B"
-		},
-		mortF:{
-			basetable:"",
-			baseYear:2000,
-			ageRating:0,
-			Loading:1,
-			lx: Array(120-0+1),
-			YOB:1990,
-			CMI_model:2017,
-			LTT:0.015,
-			Sk:7.5,
-			A:0,
-			YearOrCalendar:"B",
-		},	
-		propM:0.8,
-		propF:0.7,
-		malesOlderBy:3,
-		SDAR:0.5,
-		interest:0.04,
-		escalation:0.03,
-		guarantee:5,
-		frequency:12,
-		inAdvance:true,
-	
-	};
-
-	
-
-	
-	
 	
 function getAnnuityInputs(){
 

@@ -104,7 +104,7 @@ body{
 }
 
 
-.card2, .card3, .card4, .card5, .card6{
+.card2, .card3, .card4, .card5, .card6, .card7{
 	position:absolute;
 	width:100%;
 	/* transform:translateX(100vw); */
@@ -494,4 +494,15 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 	color:var(--color-primary);
 	margin-right:5px;
 	min-width:25px;
+}
+
+.QR-content{
+	display:flex;
+	flex: 1 1 auto;
+	justify-content:center;
+	margin-top: 10px;
+	
+	
+	
+	
 }
