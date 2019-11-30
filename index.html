@@ -57,7 +57,18 @@ Consider born in vs.  Age now
 	<div class="card card1" id="home_screen">
 	
 	<div class="card_header" id="card_header_front">
-	<button class="fa fa-share test" id="copybutton"></button>		
+	<div class="dropdown">
+		<button class="fa fa-ellipsis-v " id="copybutton"></button>
+		<div class="dropdown-content">
+			<a href="#"><i class="fa fa-copy"></i> Copy to clipboard</a>
+			<a href="#"><i class="fa fa-share-alt"></i> Share</a>
+			<a href="#"><i class="fa fa-qrcode"></i> Scan QR code</a>
+			<a href="#"><i class="fa fa-camera"></i> Generate QR code</a>
+
+		</div>
+	</div>
+	
+	
 		Annuity factor
 		<div class="card_item result" id="annuity_result">...</div>
 		<button class="fab change" id="calculateAnnuity"></button>
