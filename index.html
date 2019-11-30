@@ -45,7 +45,7 @@ Consider born in vs.  Age now
 	<link rel="stylesheet" href="./styles.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script  type="text/javascript" src="./script.js"/></script>
-	
+	<title>Annuity factor</title>
 </head>
 
 <body onload="displayAnnuityInputs()">
@@ -58,13 +58,13 @@ Consider born in vs.  Age now
 	
 	<div class="card_header" id="card_header_front">
 	<div class="dropdown">
-		<button class="fa fa-ellipsis-v " id="copybutton"></button>
-		<div class="dropdown-content">
-			<a href="#"><i class="fa fa-copy"></i> Copy to clipboard</a>
-			<a href="#"><i class="fa fa-share-alt"></i> Share</a>
-			<a href="#"><i class="fa fa-qrcode"></i> Scan QR code</a>
-			<a href="#"><i class="fa fa-camera"></i> Generate QR code</a>
-
+		<button class="fa fa-ellipsis-v" id="menubutton"></button>
+		<div class="dropdown-content" id="dropdown-content">
+			<a href="#" id="copybutton"><i class="fa fa-copy dropdown-icon"></i>Copy inputs to clipboard</a>
+			<a href="#" onclick='alert("Work in progress")'><i class="fa fa-share-alt dropdown-icon"></i>Share</a>
+			<a href="#" onclick='alert("Work in progress")'><i class="fa fa-qrcode dropdown-icon"></i>Scan QR code</a>
+			<a href="#" onclick='alert("Work in progress")'><i class="fa fa-camera dropdown-icon"></i>Generate QR code</a>
+			<a href="#" id="close-menu"><i class="fa fa-window-close dropdown-icon"></i>Close</a>
 		</div>
 	</div>
 	
@@ -574,9 +574,19 @@ document.getElementById("screen4_home").addEventListener('click', function() {mo
 document.getElementById("screen5_home").addEventListener('click', function() {moveLeft()});
 document.getElementById("screen6_home").addEventListener('click', function() {moveLeft()});
 
+document.getElementById("menubutton").addEventListener('click', function() {toggleMenu()});
+
+document.getElementById("close-menu").addEventListener('click', function() {closeMenu()});
+
+
+
+
 document.getElementById("copybutton").addEventListener('click', function() {copytest()});
 
 document.getElementById("YOB").addEventListener('change', function() {updateAge()});
+
+
+
 
 
 function updateAge(){
@@ -584,6 +594,14 @@ function updateAge(){
 	var currentYear = d.getFullYear();
 	var yob = document.getElementById("YOB").value;
 	 document.getElementById("YOB_detail").innerHTML = "Aged " + (currentYear - yob) + " in " + currentYear;
+}
+
+function toggleMenu(){
+	document.getElementById("dropdown-content").classList.toggle("visible");
+}
+
+function closeMenu(){
+	document.getElementById("dropdown-content").classList.remove("visible");
 }
 
 
@@ -633,7 +651,7 @@ function copytest(){
 	dummy.value=copy_String;
 	dummy.select();
 	document.execCommand("copy");
-	document.body.removeChild(dummy);                                                                                    
+	document.body.removeChild(dummy);                                                                                   toggleMenu(); 
 	
 //	console.log("run");
 //	console.log(dummy.value);
@@ -691,6 +709,7 @@ function updateVisibleScreens(screen){
 
 function moveRight(screen){
 	
+	closeMenu();
 	updateVisibleScreens(screen);
 	var e = document.getElementById("wrapper");
 	e.className+=" slide-in";
