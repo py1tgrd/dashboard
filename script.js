@@ -110,11 +110,16 @@ function AnnuityCalculate(mortM, mortF, MalesOlder, dblInt,dblEsc, mFrequency, m
 	 
 	let LTTR =  "_L" +mortM.LTT ;//"_L1.5";
 	let SK ="_S"+mortM.Sk;    //"_S7.5";
+	let A = "_A"+mortM.A;
 	if (mortM.CMI_model == 2015){
 		SK ="";
 	}
+	if (mortM.CMI_model < 2018){
+		A ="";
+	}
 	
-    let url_M ="https://py1tgrd.github.io/dashboard/CMI"+mortM.CMI_model+"/CMI_"+mortM.CMI_model+LTTR+SK+"_M.json"
+	
+    let url_M ="https://py1tgrd.github.io/dashboard/CMI"+mortM.CMI_model+"/CMI_"+mortM.CMI_model+LTTR+SK+A+"_M.json"
 	
 	
 	var tempCMI;
@@ -123,7 +128,7 @@ function AnnuityCalculate(mortM, mortF, MalesOlder, dblInt,dblEsc, mFrequency, m
 	//Check to see if call is needed
 	if (typeof(CMI_M) == 'undefined'){
 		CMI_M = readTextFile(url_M);
-	}else if (CMI_M["name"] != "CMI_"+mortM.CMI_model+LTTR+SK+"_M"){
+	}else if (CMI_M["name"] != "CMI_"+mortM.CMI_model+LTTR+SK+A+"_M"){
 		CMI_M = readTextFile(url_M);
 	}	
 	
@@ -153,15 +158,20 @@ function AnnuityCalculate(mortM, mortF, MalesOlder, dblInt,dblEsc, mFrequency, m
 	
 	LTTR =  "_L" +mortF.LTT ;//"_L1.5";
 	SK ="_S"+mortF.Sk;    //"_S7.5";
+	A = "_A"+mortF.A;
 		if (mortF.CMI_model == 2015){
 		SK ="";
 	}
+	if (mortF.CMI_model < 2018){
+		A ="";
+	}
 	
-	url_F ="https://py1tgrd.github.io/dashboard/CMI"+mortF.CMI_model+"/CMI_"+mortF.CMI_model+LTTR+SK+"_F.json"
+	
+	url_F ="https://py1tgrd.github.io/dashboard/CMI"+mortF.CMI_model+"/CMI_"+mortF.CMI_model+LTTR+SK+A+"_F.json"
 	
 	if (typeof(CMI_F) == 'undefined'){
 		CMI_F = readTextFile(url_F);
-	}else if (CMI_F["name"] != "CMI_"+mortF.CMI_model+LTTR+SK+"_F"){
+	}else if (CMI_F["name"] != "CMI_"+mortF.CMI_model+LTTR+SK+A+"_F"){
 		CMI_F = readTextFile(url_F);
 	}	
 	

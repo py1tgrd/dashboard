@@ -278,7 +278,7 @@ Consider born in vs.  Age now
 					<option value="2015">2015</option>
 					<option value="2016">2016</option>
 					<option value="2017" selected>2017</option>
-					<!-- <option value="2018">2018</option> -->
+					<option value="2018">2018</option>
 				</select>
 		</div>	
 	</div>
@@ -308,10 +308,14 @@ Consider born in vs.  Age now
 	</div>	
 	
 	<div class="card_item">
-	<div class="card_heading disabled">Initial Addition</div>
+	<div class="card_heading">Initial Addition</div>
 		<div class="card_subheading"> 
-				<select id="ImpModelA_M" disabled="disabled">
+				<select id="ImpModelA_M">
 					<option value=0 selected>0</option>
+					<option value=0.25>0.25</option>
+					<option value=0.5>0.5</option>
+					<option value=0.75>0.75</option>
+					<option value=1>1</option>
 				</select>
 		</div>	
 	</div>
@@ -383,7 +387,7 @@ Consider born in vs.  Age now
 					<option value="2015">2015</option>
 					<option value="2016">2016</option>
 					<option value="2017" selected>2017</option>
-					<!-- <option value="2018">2018</option> -->
+					<option value="2018">2018</option>
 				</select>
 		</div>	
 	</div>
@@ -413,10 +417,14 @@ Consider born in vs.  Age now
 	</div>	
 	
 	<div class="card_item">
-	<div class="card_heading disabled">Initial Addition</div>
+	<div class="card_heading">Initial Addition</div>
 		<div class="card_subheading"> 
-				<select id="ImpModelA_F" disabled="disabled">
+				<select id="ImpModelA_F">
 					<option value=0 selected>0</option>
+					<option value=0.25>0.25</option>
+					<option value=0.5>0.5</option>
+					<option value=0.75>0.75</option>
+					<option value=1>1</option>
 				</select>
 		</div>	
 	</div>
@@ -711,22 +719,54 @@ function copytest(){
 		
 		//Male mortality string
 		copy_String += info.mortM.basetable + "," + info.mortM.ageRating + "," + info.mortM.Loading + ";" ;
-		if (info.mortM.CMI_model != 2015){
-			copy_String += "CMI_" + info.mortM.CMI_model + "_L" + info.mortM.LTT + "%" + "_S" + info.mortM.Sk +"_M" + "," + info.mortM.YearOrCalendar + '\r';  //add Calendar year onto this
-		}
-		else{
+		
+
+		switch(info.mortM.CMI_model){
+		
+		case "2015":
 			copy_String += "CMI_" + info.mortM.CMI_model + "_" + info.mortM.LTT + "%" + "_0%" + "_M" + "," + info.mortM.YearOrCalendar + '\r';  //add Calendar year onto this
+			break;
+		case "2016":
+			copy_String += "CMI_" + info.mortM.CMI_model + "_L" + info.mortM.LTT + "%" + "_S" + info.mortM.Sk +"_M" + "," + info.mortM.YearOrCalendar + '\r';  //add Calendar year onto this
+			break;
+		case "2017":
+			copy_String += "CMI_" + info.mortM.CMI_model + "_L" + info.mortM.LTT + "%" + "_S" + info.mortM.Sk +"_M" + "," + info.mortM.YearOrCalendar + '\r';  //add Calendar year onto this
+			break;
+		case "2018":
+			if(info.mortM.A == 0){
+				copy_String += "CMI_" + info.mortM.CMI_model + "_L" + info.mortM.LTT + "%" + "_S" + info.mortM.Sk +"_M" + "," + info.mortM.YearOrCalendar + '\r';  //add Calendar year onto this
+			}else{
+			copy_String += "CMI_" + info.mortM.CMI_model + "_L" + info.mortM.LTT + "%" + "_S" + info.mortM.Sk + "_A" + info.mortM.A + "%" +"_M" + "," + info.mortM.YearOrCalendar + '\r';  //add Calendar year onto this
+			
+			}
+			break;
+			
 		}
+		
+
 		//Female mortality string
 		copy_String += info.mortF.basetable + "," + info.mortF.ageRating + "," + info.mortF.Loading + ";" ;
-		if (info.mortF.CMI_model != 2015){
-			copy_String += "CMI_" + info.mortF.CMI_model + "_L" + info.mortF.LTT + "%" + "_S" + info.mortF.Sk +"_F" + "," + info.mortF.YearOrCalendar + '\r';  //add Calendar year onto this
-		}
-		else{
+		
+		switch(info.mortF.CMI_model){
+		
+		case "2015":
 			copy_String += "CMI_" + info.mortF.CMI_model + "_" + info.mortF.LTT + "%" + "_0%" + "_F" + "," + info.mortF.YearOrCalendar  + '\r';  //add Calendar year onto this
+			break;
+		case "2016":
+			copy_String += "CMI_" + info.mortF.CMI_model + "_L" + info.mortF.LTT + "%" + "_S" + info.mortF.Sk +"_F" + "," + info.mortF.YearOrCalendar + '\r';  //add Calendar year onto this
+			break;
+		case "2017":
+			copy_String += "CMI_" + info.mortF.CMI_model + "_L" + info.mortF.LTT + "%" + "_S" + info.mortF.Sk +"_F" + "," + info.mortF.YearOrCalendar + '\r';  //add Calendar year onto this
+			break;
+		case "2018":
+			if(info.mortM.A == 0){
+			copy_String += "CMI_" + info.mortF.CMI_model + "_L" + info.mortF.LTT + "%" + "_S" + info.mortF.Sk +"_F" + "," + info.mortF.YearOrCalendar + '\r';  //add Calendar year onto this
+			}else{
+			copy_String += "CMI_" + info.mortF.CMI_model + "_L" + info.mortF.LTT + "%" + "_S" + info.mortF.Sk + "_A" + info.mortF.A + "%" +"_F" + "," + info.mortF.YearOrCalendar + '\r';  //add Calendar year onto this
+			}
+			break;
+			
 		}
-		
-		
 		
 		copy_String += info.propM  + '\r';
 		copy_String += info.propF  + '\r';
@@ -737,10 +777,7 @@ function copytest(){
 		copy_String += info.guarantee  + '\r';
 		copy_String += info.frequency  + '\r';
 		copy_String += info.inAdvance;
-		
-		
-		
-		
+	
 		
 	
 	var  dummy = document.createElement("textarea");
@@ -869,6 +906,8 @@ member_scenario+=  " annuity from " + info.age;
  Male_Mortality+= (info.mortM.YearOrCalendar =="B" ? " YoB" : " Cal"); 
  Male_Mortality+= " CMI_" + info.mortM.CMI_model + " L=" + info.mortM.LTT +"%" 
  if(info.mortM.CMI_model >2015){Male_Mortality+=  " Sk=" + info.mortM.Sk;}
+ if(info.mortM.CMI_model >=2018){Male_Mortality+=  " A=" + info.mortM.A;}
+ 
  e = document.getElementById("Male_Mortality");
  e.innerHTML = Male_Mortality;
 //------------------------ 
@@ -878,6 +917,7 @@ member_scenario+=  " annuity from " + info.age;
  Female_Mortality+= (info.mortF.YearOrCalendar =="B" ? " YoB" : " Cal"); 
  Female_Mortality+= " CMI_" + info.mortF.CMI_model + " L=" + info.mortF.LTT +"%" 
  if(info.mortF.CMI_model >2015){Female_Mortality+=  " Sk=" + info.mortF.Sk;}
+ if(info.mortF.CMI_model >=2018){Female_Mortality+=  " A=" + info.mortF.A;}
  e = document.getElementById("Female_Mortality");
  e.innerHTML = Female_Mortality;
 //------------------------ 
