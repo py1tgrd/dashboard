@@ -1,6 +1,5 @@
 <!-- TODO
 
-Move copy button to top right - to share  <i class="fas fa-share"></i>
 On hover - xl inputs
 
 QR code sharing!!
@@ -9,7 +8,6 @@ QR code sharing!!
 Height is consistent (max height 700), but
 Drop down color light grey (not blue) - cannot do easily with control (rendered by OS - can make custom with divs = pain!)
 
-FAB not showing on Android 
 Height of header still looks too big
 Sticky header
 Make Go move to next item
@@ -17,15 +15,9 @@ On mobile version, clicking on input selects whole input
 On select tab, set autofocus to top variable
 Think about how button clicking will work
 
-
-
-
-
-
-
 Wishlist
 make more keyboard friendly - enter key, and other shortcut keys
-Consider born in vs.  Age now
+
 
  -->
 
@@ -79,14 +71,24 @@ Consider born in vs.  Age now
 	<div class="card_body">
 		
 		<div class="card_item home_screen" id="screen2">
-		<div class="card_heading">Member scenario </div>
 		
-		<div class="card_subheading member" id="member_scenario"> 
-		Male born in 1965, Joint life annuity from 60
+		<div class="card-icon"><i class=" fa fa-male"></i></div>
+		<div class="card-right-side">
+		
+			<div class="card_heading">Member scenario </div>
+			
+			<div class="card_subheading member" id="member_scenario"> 
+			Male born in 1965, Joint life annuity from 60
+			</div>
+			<i class="arrow right"></i>
 		</div>
-		<i class="arrow right"></i>
+		
 		</div>
 		<div class="card_item home_screen" id="screen3">
+		<div class="card-icon"><i class=" fa fa-calculator"></i></div>
+		
+		<div class="card-right-side">
+			
 			<div class="card_heading">Financials </div>
 			<div class="card_subheading" id="financials">
 			Discount rate: 4.50%<br>
@@ -94,21 +96,30 @@ Consider born in vs.  Age now
 			</div>
 		<i class="arrow right"></i>
 		</div>
+		</div>
 		<div class="card_item home_screen" id="screen4">
-			<div class="card_heading">Mortality (Male)</div>
+		<div class="card-icon">M</div>
+		<div class="card-right-side">
+			<div class="card_heading">Male Mortality</div>
 			<div class="card_subheading" id="Male_Mortality"> 
 			100% of S2PA YoB CMI_2017 L=1.5% Sk=7.5
 			</div>
 			<i class="arrow right"></i>
 		</div>
+		</div>
 			<div class="card_item home_screen" id="screen5">
-			<div class="card_heading">Mortality (Female) </div>
+			<div class="card-icon">F</div>
+			<div class="card-right-side">
+			<div class="card_heading">Female Mortality</div>
 			<div class="card_subheading" id="Female_Mortality"> 
 			100% of S2PA YoB CMI_2017 L=1.25% Sk=7.5		
 			</div>
 			<i class="arrow right"></i>
 		</div>
+		</div>
 		<div class="card_item home_screen" id="screen6">
+			<div class="card-icon"><i class=" fa fa-hashtag"></i></div>
+			<div class="card-right-side">
 			<div class="card_heading">Other</div>
 			<div class="card_subheading" id="Other"> 
 			Spouses proportion: 50%<br>
@@ -119,6 +130,7 @@ Consider born in vs.  Age now
 			In advance: Yes
 			</div>
 			<i class="arrow right"></i>
+		</div>	
 		</div>	
 		<!-- <button id="copybutton">CLICK</button> -->
 		

@@ -7,6 +7,13 @@
 	--color-secondary:#ee6002;
 	--color-primary-light:#d4bff9;
 	--page-width:275px;
+	--color-icon:#1de9b6;
+	--color-icon1:#42a5f5;
+	--color-icon2:#ff4081;
+	--color-icon3:#ffee58;
+	--color-subfont:#484848;
+
+	
 }
 
 /*
@@ -224,8 +231,10 @@ body{
 }
 
 .card_item.home_screen{
-	padding:10px 30px 10px 10px;
+	padding:15px 30px 15px 10px;
 }
+
+
 
 .result{
 	font-weight:700;
@@ -257,8 +266,9 @@ body{
 .card_subheading{
 	display:flex;
 	flex:1 1 auto;
-	font-size:0.8rem;
+	font-size:0.9rem;
 	line-height: 1.1rem;
+	color:var(--color-subfont);
 }
 
 ul{
@@ -501,8 +511,40 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 	flex: 1 1 auto;
 	justify-content:center;
 	margin-top: 10px;
+}
+
+.card-icon{
+	display:flex;
+	flex: 0 0 auto;
+	justify-content:center;
+	align-items:center;
 	
-	
-	
-	
+	font-size:1rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius:100%;
+	text-align:center;
+	color:var(--color-card);
+	background-color:var(--color-icon);
+}
+
+#screen2 > .card-icon{background-color:var(--color-primary);}
+#screen3 > .card-icon{background-color:var(--color-icon3);}
+#screen4 > .card-icon{background-color:var(--color-icon1);}
+#screen5 > .card-icon{background-color:var(--color-icon2);}
+
+
+.card-right-side{
+	display:flex;
+	flex-direction:column;
+	margin-left: 10px;
+}
+
+.home_screen{
+	flex-direction:row;
+}
+
+.card_heading{
+	color:black;
+	font-weight:525;
 }
