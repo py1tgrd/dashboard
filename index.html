@@ -39,6 +39,15 @@ make more keyboard friendly - enter key, and other shortcut keys
 	<script  type="text/javascript" src="./script.js"/></script>
 	<script  type="text/javascript" src="./qrcode.js"/></script>
 	<script  type="text/javascript" src="./jquery.min.js"/></script>
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+	<link rel="manifest" href="./images/site.webmanifest">
+	
+	
+	
+	
 	<title>Annuity factor</title>
 </head>
 
@@ -118,7 +127,7 @@ make more keyboard friendly - enter key, and other shortcut keys
 		</div>
 		</div>
 		<div class="card_item home_screen" id="screen6">
-			<div class="card-icon"><i class=" fa fa-hashtag"></i></div>
+			<div class="card-icon">#</div>
 			<div class="card-right-side">
 			<div class="card_heading">Other</div>
 			<div class="card_subheading" id="Other"> 
@@ -149,7 +158,9 @@ make more keyboard friendly - enter key, and other shortcut keys
 
 <!-- Card screen start -->
 <div class="card card2">
-	<div class="card_header" id="screen2_home">&#8592; Member scenario</div>
+	<div class="card_header" id="screen2_home">
+	<div class="back-button"><i class="fa fa-arrow-left"></i></div>
+	Member scenario</div>
 	<div class="card_body">
 	
 	<div class="card_item">
@@ -204,7 +215,10 @@ make more keyboard friendly - enter key, and other shortcut keys
 
 <!-- Card screen start -->
 <div class="card card3">
-<div class="card_header" id="screen3_home">&#8592; Financials</div>
+<div class="card_header" id="screen3_home">
+	<div class="back-button"><i class="fa fa-arrow-left"></i></div>
+	Financials
+</div>
 	<div class="card_body">
 	<div class="card_item">
 	<div class="card_heading">Discount rate</div>
@@ -233,7 +247,9 @@ make more keyboard friendly - enter key, and other shortcut keys
 
 <!-- Card screen start -->
 <div class="card card4">
-<div class="card_header" id="screen4_home">&#8592; Mortality (Male)</div>
+<div class="card_header" id="screen4_home">
+<div class="back-button"><i class="fa fa-arrow-left"></i></div>
+Male Mortality</div>
 	<div class="card_body">
 	
 	<div class="card_item">
@@ -319,7 +335,7 @@ make more keyboard friendly - enter key, and other shortcut keys
 		</div>	
 	</div>	
 	
-	<div class="card_item">
+	<div class="card_item hidden" id="ImpModelA_M_Card">
 	<div class="card_heading">Initial Addition</div>
 		<div class="card_subheading"> 
 				<select id="ImpModelA_M">
@@ -342,7 +358,9 @@ make more keyboard friendly - enter key, and other shortcut keys
 		
 <!-- Card screen start -->
 <div class="card card5">
-<div class="card_header" id="screen5_home">&#8592; Mortality (Female)</div>
+<div class="card_header" id="screen5_home">
+<div class="back-button"><i class="fa fa-arrow-left"></i></div>
+Female Mortality</div>
 	<div class="card_body">
 	
 	<div class="card_item">
@@ -428,7 +446,7 @@ make more keyboard friendly - enter key, and other shortcut keys
 		</div>	
 	</div>	
 	
-	<div class="card_item">
+	<div class="card_item hidden" id="ImpModelA_F_Card">
 	<div class="card_heading">Initial Addition</div>
 		<div class="card_subheading"> 
 				<select id="ImpModelA_F">
@@ -450,7 +468,9 @@ make more keyboard friendly - enter key, and other shortcut keys
 
 <!-- Card screen start -->
 <div class="card card6">
-<div class="card_header" id="screen6_home">&#8592; Other</div>
+<div class="card_header" id="screen6_home">
+<div class="back-button"><i class="fa fa-arrow-left"></i></div>
+Other</div>
 	<div class="card_body">
 	<div class="card_item">
 	<div class="card_heading">Spouses % on death</div>
@@ -630,6 +650,10 @@ document.getElementById("generate-qr-click").addEventListener('click', function(
 document.getElementById("YOB").addEventListener('change', function() {updateAge()});
 
 
+document.getElementById("ImpModelYear_M").addEventListener('change', function() {showHideA_M()});
+document.getElementById("ImpModelYear_F").addEventListener('change', function() {showHideA_F()});
+
+
 var info ={
 		age:60,
 		sex:0,
@@ -672,7 +696,32 @@ var info ={
 	
 	};
 
+function showHideA_M(){
+	e = document.getElementById("ImpModelYear_M");
+	if(e.options[e.selectedIndex].value < 2018)
+	{
+		document.getElementById("ImpModelA_M_Card").classList.add("hidden");
+	}else{
+		document.getElementById("ImpModelA_M_Card").classList.remove("hidden");
+	}
 
+}
+
+function showHideA_F(){
+	e = document.getElementById("ImpModelYear_F");
+	if(e.options[e.selectedIndex].value < 2018)
+	{
+		document.getElementById("ImpModelA_F_Card").classList.add("hidden");
+	}else{
+		document.getElementById("ImpModelA_F_Card").classList.remove("hidden");
+	}
+
+}
+
+
+	
+	
+	
 function updateAge(){
 	var d = new Date();
 	var currentYear = d.getFullYear();
@@ -832,7 +881,7 @@ function test(){
 
 
 
-function NotifyChange(){
+function NotifyChange(event){
 	document.getElementById("calculateAnnuity").classList.add("change");
 }
 
@@ -910,7 +959,11 @@ member_scenario+=  " annuity from " + info.age;
  
 //Update Male Mortality
 
- var Male_Mortality = Number(Math.round(info.mortM.Loading*100+'e2')+'e-2') + "% of " + info.mortM.basetable + (info.mortM.ageRating !=0 ? " " + info.mortM.ageRating : "") ;
+ var Male_Mortality = Number(Math.round(info.mortM.Loading*100+'e2')+'e-2') + "% of " + info.mortM.basetable;
+
+if(info.mortM.ageRating >0){Male_Mortality += " +" + info.mortM.ageRating;}
+if(info.mortM.ageRating <0){Male_Mortality += " " + info.mortM.ageRating;}
+ Male_Mortality +="<br>";
  
  
  //100% of <span class="accent">S2PA</span> YoB <span class="accent">CMI_2017</span> L=1.5% Sk=7.5
@@ -925,7 +978,13 @@ member_scenario+=  " annuity from " + info.age;
 //------------------------ 
 
 //Update Female Mortality
- var Female_Mortality = Number(Math.round(info.mortF.Loading*100+'e2')+'e-2') + "% of " + info.mortF.basetable + (info.mortF.ageRating !=0 ? " " + info.mortF.ageRating : "") ;
+ var Female_Mortality = Number(Math.round(info.mortF.Loading*100+'e2')+'e-2') + "% of " + info.mortF.basetable;
+ 
+if(info.mortF.ageRating >0){Female_Mortality += " +" + info.mortF.ageRating;}
+if(info.mortF.ageRating <0){Female_Mortality += " " + info.mortF.ageRating;}
+Female_Mortality +="<br>";
+ 
+ 
  Female_Mortality+= (info.mortF.YearOrCalendar =="B" ? " YoB" : " Cal"); 
  Female_Mortality+= " CMI_" + info.mortF.CMI_model + " L=" + info.mortF.LTT +"%" 
  if(info.mortF.CMI_model >2015){Female_Mortality+=  " Sk=" + info.mortF.Sk;}

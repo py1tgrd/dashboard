@@ -3,8 +3,9 @@
 	--color-light: #E6E7E8;
 	--color-card:white;
 	--color-light-dark: #CCC;	
+	/* --color-primary:#6002EE; */
 	--color-primary:#6002EE;
-	--color-secondary:#ee6002;
+	--color-secondary:#ff4081;
 	--color-primary-light:#d4bff9;
 	--page-width:275px;
 	--color-icon:#1de9b6;
@@ -128,16 +129,18 @@ body{
 	display:flex;
 	flex: 1 1 auto;
 	position:relative;
+	justify-content:center;
 	
-	min-height:50px;
+	min-height:100px;
 	background-color:var(--color-primary);
-	padding:10px 10px;
-	border-radius: 0 0 20px 20px;
+	padding:20px 10px;
+	/* border-radius: 0 0 20px 20px; */
 	color:white;
 	font-weight:500;
-	font-size:1.2rem;
-	
+	font-size:1rem;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
 	cursor:default;
+	
 }
 
 /*buttons in the main header*/
@@ -209,7 +212,7 @@ body{
 	flex-direction:column;
 	flex: 1 1 auto;
 	position: relative;
-	
+	overflow:auto;
 
 	/* justify-content:flex-start;	 */
 	
@@ -267,7 +270,7 @@ body{
 	display:flex;
 	flex:1 1 auto;
 	font-size:0.9rem;
-	line-height: 1.1rem;
+	line-height: 1.4rem;
 	color:var(--color-subfont);
 }
 
@@ -376,9 +379,10 @@ option{
 	
 }
 
-#Other{
+#Other, #Male_Mortality, #Female_Mortality{
 	line-height:1.4rem; /*1.3rem to 1.7 rem */
 }
+
 
 
 .percentage_holder{
@@ -406,8 +410,10 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 	min-height:100px;
 	padding-top:20px;
 	margin-bottom:10px;
-	border-radius: 0 0 50px 50px;
+	/* border-radius: 0 0 50px 50px; */
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
 	font-size: 1rem;
+	z-index:2;
 	
 }
 
@@ -522,17 +528,12 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 	font-size:1rem;
 	width: 2.5rem;
 	height: 2.5rem;
-	border-radius:100%;
+	border-radius:5px;
 	text-align:center;
-	color:var(--color-card);
-	background-color:var(--color-icon);
+	background-color:#f4f4f4;
+	font-weight:400;
+	color:var(--color-subfont);
 }
-
-#screen2 > .card-icon{background-color:var(--color-primary);}
-#screen3 > .card-icon{background-color:var(--color-icon3);}
-#screen4 > .card-icon{background-color:var(--color-icon1);}
-#screen5 > .card-icon{background-color:var(--color-icon2);}
-
 
 .card-right-side{
 	display:flex;
@@ -547,4 +548,18 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .card_heading{
 	color:black;
 	font-weight:525;
+}
+
+.back-button{
+	position:absolute;
+	left:0;
+	margin-left:20px;
+}
+
+.back-button:hover{
+	cursor:pointer;
+}
+
+.card_item.hidden{
+	display:none;
 }
